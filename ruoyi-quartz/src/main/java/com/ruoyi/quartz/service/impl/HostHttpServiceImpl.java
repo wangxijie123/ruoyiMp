@@ -1,12 +1,10 @@
 package com.ruoyi.quartz.service.impl;
 
-
 import com.alibaba.fastjson.JSONObject;
-import com.ruoyi.common.core.domain.HostApplication;
-import com.ruoyi.common.utils.NtopngUtil;
-import com.ruoyi.quartz.mapper.HostApplicationMapper;
+import com.ruoyi.common.core.domain.HostHttp;
+import com.ruoyi.quartz.mapper.HostHttpMapper;
 import com.ruoyi.quartz.mapper.InterfaceHostsMapper;
-import com.ruoyi.quartz.service.IHostApplicationService;
+import com.ruoyi.quartz.service.IHostHttpService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +12,8 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 
 /**
  * 【请填写功能名称】Service业务层处理
@@ -21,14 +21,15 @@ import java.util.Map;
  * @author ruoyi
  * @date 2021-01-15
  */
-@Transactional
 @Service
-public class HostApplicationServiceImpl implements IHostApplicationService {
+@Transactional
+public class HostHttpServiceImpl implements IHostHttpService {
     @Resource
-    private HostApplicationMapper mapper;
+    private HostHttpMapper mapper;
 
     @Resource
     private InterfaceHostsMapper hostsMapper;
+
 
     @Override
     public void insert() {
@@ -47,29 +48,112 @@ public class HostApplicationServiceImpl implements IHostApplicationService {
                 JSONObject rsp = json.getJSONObject("rsp");
                 Map<String, Object> fields = new HashMap<String, Object>();
                 //对应application页面的数据
-                if (rsp.containsKey("ndpi")) {
+                if (rsp.containsKey("http")) {
                     long l = System.currentTimeMillis();
                     String s = l + "0000";
                     Long time = Long.parseLong(s);
-                    JSONObject ndpi = rsp.getJSONObject("ndpi");
-                    //按IP，存不同协议的流量
-                    for (Map.Entry<String, Object> entry : ndpi.entrySet()) {
-                        String key = entry.getKey();//MQTT,HTTP
-                        Object o = entry.getValue();
-                        fields.clear();
-                        if (o instanceof JSONObject) {
-                            JSONObject fo = (JSONObject) o;
-                            HostApplication hostApplication = new HostApplication(key, fo.getLong("duration"), fo.getLong("bytes.send")
-                                    , fo.getLong("packets.rcvd"), fo.getLong("num_flows"), fo.getLong("bytes.rcvd"),
-                                    fo.getLong("packets.sent"), fo.getString("breed"), time, 0L, ip
-                            );
-                            mapper.insertHostApplication(hostApplication);
+                    JSONObject http = rsp.getJSONObject("http");
+                    if (null != http) {
+                        JSONObject receiver = http.getJSONObject("receiver");
+                        Map<String, Long> buildReceiver = build(receiver);
+                        JSONObject sender = http.getJSONObject("sender");
+                        Map<String, Long> buildSender = build(sender);
+                        HostHttp hostHttp = new HostHttp(time, 0L, ip,
+                                buildReceiver.get("1xx"),
+                                buildReceiver.get("2xx"),
+                                buildReceiver.get("3xx"),
+                                buildReceiver.get("4xx"),
+                                buildReceiver.get("5xx"),
+                                buildReceiver.get("head"),
+                                buildReceiver.get("other"),
+                                buildReceiver.get("post"),
+                                buildReceiver.get("get"),
+                                buildReceiver.get("put"),
+                                buildReceiver.get("total"),
+                                buildReceiver.get("num_1xx"),
+                                buildReceiver.get("num_2xx"),
+                                buildReceiver.get("num_3xx"),
+                                buildReceiver.get("num_4xx"),
+                                buildReceiver.get("num_5xx"),
+                                buildReceiver.get("num_other"),
+                                buildReceiver.get("num_post"),
+                                buildReceiver.get("total"),
+                                buildReceiver.get("num_put"),
+                                buildReceiver.get("num_get"),
+                                buildReceiver.get("num_head"),
+                                buildSender.get("1xx"),
+                                buildSender.get("2xx"),
+                                buildSender.get("3xx"),
+                                buildSender.get("4xx"),
+                                buildSender.get("5xx"),
+                                buildSender.get("head"),
+                                buildSender.get("other"),
+                                buildSender.get("post"),
+                                buildSender.get("get"),
+                                buildSender.get("put"),
+                                buildSender.get("total"),
+                                buildSender.get("num_1xx"),
+                                buildSender.get("num_2xx"),
+                                buildSender.get("num_3xx"),
+                                buildSender.get("num_4xx"),
+                                buildSender.get("num_5xx"),
+                                buildSender.get("num_other"),
+                                buildSender.get("num_post"),
+                                buildSender.get("total"),
+                                buildSender.get("num_put"),
+                                buildSender.get("num_get"),
+                                buildSender.get("num_head")
+                        );
+                        JSONObject virtual_hosts = http.getJSONObject("virtual_hosts");
+                        if (null!=virtual_hosts){
+                            for (Map.Entry<String, Object> map : virtual_hosts.entrySet() ){
+                                JSONObject value = (JSONObject)map.getValue();
+                                hostHttp.setVirtualHostsName(map.getKey());
+                                hostHttp.setVirtualHostsBytesSent(value.getLong("bytes.sent"));
+                                hostHttp.setVirtualHostsHttpRequestsTrend(value.getLong("http.requests_trend"));
+                                hostHttp.setVirtualHostsHttpActNumRequests(value.getLong("http.act_num_requests"));
+                                hostHttp.setVirtualHostsBytesRcvd(value.getLong("bytes.rcvd"));
+                                hostHttp.setVirtualHostsHttpRequests(value.getLong("http.requests"));
+                            }
                         }
+
+                        mapper.insertHostHttp(hostHttp);
                     }
                 }
             }
 
         }
+    }
 
+    private Map<String, Long> build(JSONObject json) {
+        Map<String, Long> map = new HashMap<>();
+        JSONObject rate = json.getJSONObject("rate");
+        JSONObject response1 = rate.getJSONObject("response");
+        map.put("1xx", response1.getLongValue("1xx"));
+        map.put("2xx", response1.getLongValue("2xx"));
+        map.put("3xx", response1.getLongValue("3xx"));
+        map.put("4xx", response1.getLongValue("4xx"));
+        map.put("5xx", response1.getLongValue("5xx"));
+        JSONObject query1 = rate.getJSONObject("query");
+        map.put("head", query1.getLongValue("head"));
+        map.put("other", query1.getLongValue("other"));
+        map.put("post", query1.getLongValue("post"));
+        map.put("get", query1.getLongValue("get"));
+        map.put("put", query1.getLongValue("put"));
+        JSONObject response = json.getJSONObject("response");
+        map.put("total", response.getLongValue("total"));
+        map.put("num_1xx", response.getLongValue("num_1xx"));
+        map.put("num_2xx", response.getLongValue("num_2xx"));
+        map.put("num_3xx", response.getLongValue("num_3xx"));
+        map.put("num_4xx", response.getLongValue("num_4xx"));
+        map.put("num_5xx", response.getLongValue("num_5xx"));
+        JSONObject query = json.getJSONObject("query");
+        map.put("num_other", query.getLongValue("num_other"));
+        map.put("num_post", query.getLongValue("num_post"));
+        map.put("query_total", query.getLongValue("total"));
+        map.put("num_put", query.getLongValue("num_put"));
+        map.put("num_get", query.getLongValue("num_get"));
+        map.put("num_head", query.getLongValue("num_head"));
+        return map;
     }
 }

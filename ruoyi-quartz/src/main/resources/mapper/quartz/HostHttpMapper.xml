@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.HostHttpMapper">
+    
+    <resultMap type="com.ruoyi.common.core.domain.HostHttp" id="HostHttpResult">
+        <result property="id"    column="id"    />
+        <result property="time"    column="time"    />
+        <result property="ifId"    column="if_id"    />
+        <result property="ip"    column="ip"    />
+        <result property="receiverRateResponse1xx"    column="receiver_rate_response_1xx"    />
+        <result property="receiverRateResponse2xx"    column="receiver_rate_response_2xx"    />
+        <result property="receiverRateResponse3xx"    column="receiver_rate_response_3xx"    />
+        <result property="receiverRateResponse4xx"    column="receiver_rate_response_4xx"    />
+        <result property="receiverRateResponse5xx"    column="receiver_rate_response_5xx"    />
+        <result property="receiverRateQueryHead"    column="receiver_rate_query_head"    />
+        <result property="receiverRateQueryOther"    column="receiver_rate_query_other"    />
+        <result property="receiverRateQueryPost"    column="receiver_rate_query_post"    />
+        <result property="receiverRateQueryGet"    column="receiver_rate_query_get"    />
+        <result property="receiverRateQueryPut"    column="receiver_rate_query_put"    />
+        <result property="receiverResponseTotal"    column="receiver_response_total"    />
+        <result property="receiverResponseNum1xx"    column="receiver_response_num_1xx"    />
+        <result property="receiverResponseNum2xx"    column="receiver_response_num_2xx"    />
+        <result property="receiverResponseNum3xx"    column="receiver_response_num_3xx"    />
+        <result property="receiverResponseNum4xx"    column="receiver_response_num_4xx"    />
+        <result property="receiverResponseNum5xx"    column="receiver_response_num_5xx"    />
+        <result property="receiverQueryNumOther"    column="receiver_query_num_other"    />
+        <result property="receiverQueryNumPost"    column="receiver_query_num_post"    />
+        <result property="receiverQueryTotal"    column="receiver_query_total"    />
+        <result property="receiverQueryNumPut"    column="receiver_query_num_put"    />
+        <result property="receiverQueryNumGet"    column="receiver_query_num_get"    />
+        <result property="receiverQueryNumHead"    column="receiver_query_num_head"    />
+        <result property="senderRateResponse1xx"    column="sender_rate_response_1xx"    />
+        <result property="senderRateResponse2xx"    column="sender_rate_response_2xx"    />
+        <result property="senderRateResponse3xx"    column="sender_rate_response_3xx"    />
+        <result property="senderRateResponse4xx"    column="sender_rate_response_4xx"    />
+        <result property="senderRateResponse5xx"    column="sender_rate_response_5xx"    />
+        <result property="senderRateQueryHead"    column="sender_rate_query_head"    />
+        <result property="senderRateQueryOther"    column="sender_rate_query_other"    />
+        <result property="senderRateQueryPost"    column="sender_rate_query_post"    />
+        <result property="senderRateQueryGet"    column="sender_rate_query_get"    />
+        <result property="senderRateQueryPut"    column="sender_rate_query_put"    />
+        <result property="senderResponseTotal"    column="sender_response_total"    />
+        <result property="senderResponseNum1xx"    column="sender_response_num_1xx"    />
+        <result property="senderResponseNum2xx"    column="sender_response_num_2xx"    />
+        <result property="senderResponseNum3xx"    column="sender_response_num_3xx"    />
+        <result property="senderResponseNum4xx"    column="sender_response_num_4xx"    />
+        <result property="senderResponseNum5xx"    column="sender_response_num_5xx"    />
+        <result property="senderQueryNumOther"    column="sender_query_num_other"    />
+        <result property="senderQueryNumPost"    column="sender_query_num_post"    />
+        <result property="senderQueryTotal"    column="sender_query_total"    />
+        <result property="senderQueryNumPut"    column="sender_query_num_put"    />
+        <result property="senderQueryNumGet"    column="sender_query_num_get"    />
+        <result property="senderQueryNumHead"    column="sender_query_num_head"    />
+        <result property="virtualHostsName"    column="virtual_hosts_name"    />
+        <result property="virtualHostsBytesSent"    column="virtual_hosts_bytes_sent"    />
+        <result property="virtualHostsHttpRequestsTrend"    column="virtual_hosts_http_requests_trend"    />
+        <result property="virtualHostsHttpActNumRequests"    column="virtual_hosts_http_act_num_requests"    />
+        <result property="virtualHostsBytesRcvd"    column="virtual_hosts_bytes_rcvd"    />
+        <result property="virtualHostsHttpRequests"    column="virtual_hosts_http_requests"    />
+    </resultMap>
+
+    <sql id="selectHostHttpVo">
+        select id, time, if_id, ip, receiver_rate_response_1xx, receiver_rate_response_2xx, receiver_rate_response_3xx, receiver_rate_response_4xx, receiver_rate_response_5xx, receiver_rate_query_head, receiver_rate_query_other, receiver_rate_query_post, receiver_rate_query_get, receiver_rate_query_put, receiver_response_total, receiver_response_num_1xx, receiver_response_num_2xx, receiver_response_num_3xx, receiver_response_num_4xx, receiver_response_num_5xx, receiver_query_num_other, receiver_query_num_post, receiver_query_total, receiver_query_num_put, receiver_query_num_get, receiver_query_num_head, sender_rate_response_1xx, sender_rate_response_2xx, sender_rate_response_3xx, sender_rate_response_4xx, sender_rate_response_5xx, sender_rate_query_head, sender_rate_query_other, sender_rate_query_post, sender_rate_query_get, sender_rate_query_put, sender_response_total, sender_response_num_1xx, sender_response_num_2xx, sender_response_num_3xx, sender_response_num_4xx, sender_response_num_5xx, sender_query_num_other, sender_query_num_post, sender_query_total, sender_query_num_put, sender_query_num_get, sender_query_num_head, virtual_hosts_name, virtual_hosts_bytes_sent, virtual_hosts_http_requests_trend, virtual_hosts_http_act_num_requests, virtual_hosts_bytes_rcvd, virtual_hosts_http_requests from host_http
+    </sql>
+
+    <select id="selectHostHttpList" parameterType="com.ruoyi.common.core.domain.HostHttp" resultMap="HostHttpResult">
+        <include refid="selectHostHttpVo"/>
+        <where>  
+            <if test="time != null "> and time = #{time}</if>
+            <if test="ifId != null "> and if_id = #{ifId}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="receiverRateResponse1xx != null "> and receiver_rate_response_1xx = #{receiverRateResponse1xx}</if>
+            <if test="receiverRateResponse2xx != null "> and receiver_rate_response_2xx = #{receiverRateResponse2xx}</if>
+            <if test="receiverRateResponse3xx != null "> and receiver_rate_response_3xx = #{receiverRateResponse3xx}</if>
+            <if test="receiverRateResponse4xx != null "> and receiver_rate_response_4xx = #{receiverRateResponse4xx}</if>
+            <if test="receiverRateResponse5xx != null "> and receiver_rate_response_5xx = #{receiverRateResponse5xx}</if>
+            <if test="receiverRateQueryHead != null "> and receiver_rate_query_head = #{receiverRateQueryHead}</if>
+            <if test="receiverRateQueryOther != null "> and receiver_rate_query_other = #{receiverRateQueryOther}</if>
+            <if test="receiverRateQueryPost != null "> and receiver_rate_query_post = #{receiverRateQueryPost}</if>
+            <if test="receiverRateQueryGet != null "> and receiver_rate_query_get = #{receiverRateQueryGet}</if>
+            <if test="receiverRateQueryPut != null "> and receiver_rate_query_put = #{receiverRateQueryPut}</if>
+            <if test="receiverResponseTotal != null "> and receiver_response_total = #{receiverResponseTotal}</if>
+            <if test="receiverResponseNum1xx != null "> and receiver_response_num_1xx = #{receiverResponseNum1xx}</if>
+            <if test="receiverResponseNum2xx != null "> and receiver_response_num_2xx = #{receiverResponseNum2xx}</if>
+            <if test="receiverResponseNum3xx != null "> and receiver_response_num_3xx = #{receiverResponseNum3xx}</if>
+            <if test="receiverResponseNum4xx != null "> and receiver_response_num_4xx = #{receiverResponseNum4xx}</if>
+            <if test="receiverResponseNum5xx != null "> and receiver_response_num_5xx = #{receiverResponseNum5xx}</if>
+            <if test="receiverQueryNumOther != null "> and receiver_query_num_other = #{receiverQueryNumOther}</if>
+            <if test="receiverQueryNumPost != null "> and receiver_query_num_post = #{receiverQueryNumPost}</if>
+            <if test="receiverQueryTotal != null "> and receiver_query_total = #{receiverQueryTotal}</if>
+            <if test="receiverQueryNumPut != null "> and receiver_query_num_put = #{receiverQueryNumPut}</if>
+            <if test="receiverQueryNumGet != null "> and receiver_query_num_get = #{receiverQueryNumGet}</if>
+            <if test="receiverQueryNumHead != null "> and receiver_query_num_head = #{receiverQueryNumHead}</if>
+            <if test="senderRateResponse1xx != null "> and sender_rate_response_1xx = #{senderRateResponse1xx}</if>
+            <if test="senderRateResponse2xx != null "> and sender_rate_response_2xx = #{senderRateResponse2xx}</if>
+            <if test="senderRateResponse3xx != null "> and sender_rate_response_3xx = #{senderRateResponse3xx}</if>
+            <if test="senderRateResponse4xx != null "> and sender_rate_response_4xx = #{senderRateResponse4xx}</if>
+            <if test="senderRateResponse5xx != null "> and sender_rate_response_5xx = #{senderRateResponse5xx}</if>
+            <if test="senderRateQueryHead != null "> and sender_rate_query_head = #{senderRateQueryHead}</if>
+            <if test="senderRateQueryOther != null "> and sender_rate_query_other = #{senderRateQueryOther}</if>
+            <if test="senderRateQueryPost != null "> and sender_rate_query_post = #{senderRateQueryPost}</if>
+            <if test="senderRateQueryGet != null "> and sender_rate_query_get = #{senderRateQueryGet}</if>
+            <if test="senderRateQueryPut != null "> and sender_rate_query_put = #{senderRateQueryPut}</if>
+            <if test="senderResponseTotal != null "> and sender_response_total = #{senderResponseTotal}</if>
+            <if test="senderResponseNum1xx != null "> and sender_response_num_1xx = #{senderResponseNum1xx}</if>
+            <if test="senderResponseNum2xx != null "> and sender_response_num_2xx = #{senderResponseNum2xx}</if>
+            <if test="senderResponseNum3xx != null "> and sender_response_num_3xx = #{senderResponseNum3xx}</if>
+            <if test="senderResponseNum4xx != null "> and sender_response_num_4xx = #{senderResponseNum4xx}</if>
+            <if test="senderResponseNum5xx != null "> and sender_response_num_5xx = #{senderResponseNum5xx}</if>
+            <if test="senderQueryNumOther != null "> and sender_query_num_other = #{senderQueryNumOther}</if>
+            <if test="senderQueryNumPost != null "> and sender_query_num_post = #{senderQueryNumPost}</if>
+            <if test="senderQueryTotal != null "> and sender_query_total = #{senderQueryTotal}</if>
+            <if test="senderQueryNumPut != null "> and sender_query_num_put = #{senderQueryNumPut}</if>
+            <if test="senderQueryNumGet != null "> and sender_query_num_get = #{senderQueryNumGet}</if>
+            <if test="senderQueryNumHead != null "> and sender_query_num_head = #{senderQueryNumHead}</if>
+            <if test="virtualHostsName != null  and virtualHostsName != ''"> and virtual_hosts_name like concat('%', #{virtualHostsName}, '%')</if>
+            <if test="virtualHostsBytesSent != null "> and virtual_hosts_bytes_sent = #{virtualHostsBytesSent}</if>
+            <if test="virtualHostsHttpRequestsTrend != null "> and virtual_hosts_http_requests_trend = #{virtualHostsHttpRequestsTrend}</if>
+            <if test="virtualHostsHttpActNumRequests != null "> and virtual_hosts_http_act_num_requests = #{virtualHostsHttpActNumRequests}</if>
+            <if test="virtualHostsBytesRcvd != null "> and virtual_hosts_bytes_rcvd = #{virtualHostsBytesRcvd}</if>
+            <if test="virtualHostsHttpRequests != null "> and virtual_hosts_http_requests = #{virtualHostsHttpRequests}</if>
+        </where>
+    </select>
+    
+    <select id="selectHostHttpById" parameterType="Long" resultMap="HostHttpResult">
+        <include refid="selectHostHttpVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHostHttp" parameterType="com.ruoyi.common.core.domain.HostHttp" useGeneratedKeys="true" keyProperty="id">
+        insert into host_http
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="time != null">time,</if>
+            <if test="ifId != null">if_id,</if>
+            <if test="ip != null">ip,</if>
+            <if test="receiverRateResponse1xx != null">receiver_rate_response_1xx,</if>
+            <if test="receiverRateResponse2xx != null">receiver_rate_response_2xx,</if>
+            <if test="receiverRateResponse3xx != null">receiver_rate_response_3xx,</if>
+            <if test="receiverRateResponse4xx != null">receiver_rate_response_4xx,</if>
+            <if test="receiverRateResponse5xx != null">receiver_rate_response_5xx,</if>
+            <if test="receiverRateQueryHead != null">receiver_rate_query_head,</if>
+            <if test="receiverRateQueryOther != null">receiver_rate_query_other,</if>
+            <if test="receiverRateQueryPost != null">receiver_rate_query_post,</if>
+            <if test="receiverRateQueryGet != null">receiver_rate_query_get,</if>
+            <if test="receiverRateQueryPut != null">receiver_rate_query_put,</if>
+            <if test="receiverResponseTotal != null">receiver_response_total,</if>
+            <if test="receiverResponseNum1xx != null">receiver_response_num_1xx,</if>
+            <if test="receiverResponseNum2xx != null">receiver_response_num_2xx,</if>
+            <if test="receiverResponseNum3xx != null">receiver_response_num_3xx,</if>
+            <if test="receiverResponseNum4xx != null">receiver_response_num_4xx,</if>
+            <if test="receiverResponseNum5xx != null">receiver_response_num_5xx,</if>
+            <if test="receiverQueryNumOther != null">receiver_query_num_other,</if>
+            <if test="receiverQueryNumPost != null">receiver_query_num_post,</if>
+            <if test="receiverQueryTotal != null">receiver_query_total,</if>
+            <if test="receiverQueryNumPut != null">receiver_query_num_put,</if>
+            <if test="receiverQueryNumGet != null">receiver_query_num_get,</if>
+            <if test="receiverQueryNumHead != null">receiver_query_num_head,</if>
+            <if test="senderRateResponse1xx != null">sender_rate_response_1xx,</if>
+            <if test="senderRateResponse2xx != null">sender_rate_response_2xx,</if>
+            <if test="senderRateResponse3xx != null">sender_rate_response_3xx,</if>
+            <if test="senderRateResponse4xx != null">sender_rate_response_4xx,</if>
+            <if test="senderRateResponse5xx != null">sender_rate_response_5xx,</if>
+            <if test="senderRateQueryHead != null">sender_rate_query_head,</if>
+            <if test="senderRateQueryOther != null">sender_rate_query_other,</if>
+            <if test="senderRateQueryPost != null">sender_rate_query_post,</if>
+            <if test="senderRateQueryGet != null">sender_rate_query_get,</if>
+            <if test="senderRateQueryPut != null">sender_rate_query_put,</if>
+            <if test="senderResponseTotal != null">sender_response_total,</if>
+            <if test="senderResponseNum1xx != null">sender_response_num_1xx,</if>
+            <if test="senderResponseNum2xx != null">sender_response_num_2xx,</if>
+            <if test="senderResponseNum3xx != null">sender_response_num_3xx,</if>
+            <if test="senderResponseNum4xx != null">sender_response_num_4xx,</if>
+            <if test="senderResponseNum5xx != null">sender_response_num_5xx,</if>
+            <if test="senderQueryNumOther != null">sender_query_num_other,</if>
+            <if test="senderQueryNumPost != null">sender_query_num_post,</if>
+            <if test="senderQueryTotal != null">sender_query_total,</if>
+            <if test="senderQueryNumPut != null">sender_query_num_put,</if>
+            <if test="senderQueryNumGet != null">sender_query_num_get,</if>
+            <if test="senderQueryNumHead != null">sender_query_num_head,</if>
+            <if test="virtualHostsName != null">virtual_hosts_name,</if>
+            <if test="virtualHostsBytesSent != null">virtual_hosts_bytes_sent,</if>
+            <if test="virtualHostsHttpRequestsTrend != null">virtual_hosts_http_requests_trend,</if>
+            <if test="virtualHostsHttpActNumRequests != null">virtual_hosts_http_act_num_requests,</if>
+            <if test="virtualHostsBytesRcvd != null">virtual_hosts_bytes_rcvd,</if>
+            <if test="virtualHostsHttpRequests != null">virtual_hosts_http_requests,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="time != null">#{time},</if>
+            <if test="ifId != null">#{ifId},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="receiverRateResponse1xx != null">#{receiverRateResponse1xx},</if>
+            <if test="receiverRateResponse2xx != null">#{receiverRateResponse2xx},</if>
+            <if test="receiverRateResponse3xx != null">#{receiverRateResponse3xx},</if>
+            <if test="receiverRateResponse4xx != null">#{receiverRateResponse4xx},</if>
+            <if test="receiverRateResponse5xx != null">#{receiverRateResponse5xx},</if>
+            <if test="receiverRateQueryHead != null">#{receiverRateQueryHead},</if>
+            <if test="receiverRateQueryOther != null">#{receiverRateQueryOther},</if>
+            <if test="receiverRateQueryPost != null">#{receiverRateQueryPost},</if>
+            <if test="receiverRateQueryGet != null">#{receiverRateQueryGet},</if>
+            <if test="receiverRateQueryPut != null">#{receiverRateQueryPut},</if>
+            <if test="receiverResponseTotal != null">#{receiverResponseTotal},</if>
+            <if test="receiverResponseNum1xx != null">#{receiverResponseNum1xx},</if>
+            <if test="receiverResponseNum2xx != null">#{receiverResponseNum2xx},</if>
+            <if test="receiverResponseNum3xx != null">#{receiverResponseNum3xx},</if>
+            <if test="receiverResponseNum4xx != null">#{receiverResponseNum4xx},</if>
+            <if test="receiverResponseNum5xx != null">#{receiverResponseNum5xx},</if>
+            <if test="receiverQueryNumOther != null">#{receiverQueryNumOther},</if>
+            <if test="receiverQueryNumPost != null">#{receiverQueryNumPost},</if>
+            <if test="receiverQueryTotal != null">#{receiverQueryTotal},</if>
+            <if test="receiverQueryNumPut != null">#{receiverQueryNumPut},</if>
+            <if test="receiverQueryNumGet != null">#{receiverQueryNumGet},</if>
+            <if test="receiverQueryNumHead != null">#{receiverQueryNumHead},</if>
+            <if test="senderRateResponse1xx != null">#{senderRateResponse1xx},</if>
+            <if test="senderRateResponse2xx != null">#{senderRateResponse2xx},</if>
+            <if test="senderRateResponse3xx != null">#{senderRateResponse3xx},</if>
+            <if test="senderRateResponse4xx != null">#{senderRateResponse4xx},</if>
+            <if test="senderRateResponse5xx != null">#{senderRateResponse5xx},</if>
+            <if test="senderRateQueryHead != null">#{senderRateQueryHead},</if>
+            <if test="senderRateQueryOther != null">#{senderRateQueryOther},</if>
+            <if test="senderRateQueryPost != null">#{senderRateQueryPost},</if>
+            <if test="senderRateQueryGet != null">#{senderRateQueryGet},</if>
+            <if test="senderRateQueryPut != null">#{senderRateQueryPut},</if>
+            <if test="senderResponseTotal != null">#{senderResponseTotal},</if>
+            <if test="senderResponseNum1xx != null">#{senderResponseNum1xx},</if>
+            <if test="senderResponseNum2xx != null">#{senderResponseNum2xx},</if>
+            <if test="senderResponseNum3xx != null">#{senderResponseNum3xx},</if>
+            <if test="senderResponseNum4xx != null">#{senderResponseNum4xx},</if>
+            <if test="senderResponseNum5xx != null">#{senderResponseNum5xx},</if>
+            <if test="senderQueryNumOther != null">#{senderQueryNumOther},</if>
+            <if test="senderQueryNumPost != null">#{senderQueryNumPost},</if>
+            <if test="senderQueryTotal != null">#{senderQueryTotal},</if>
+            <if test="senderQueryNumPut != null">#{senderQueryNumPut},</if>
+            <if test="senderQueryNumGet != null">#{senderQueryNumGet},</if>
+            <if test="senderQueryNumHead != null">#{senderQueryNumHead},</if>
+            <if test="virtualHostsName != null">#{virtualHostsName},</if>
+            <if test="virtualHostsBytesSent != null">#{virtualHostsBytesSent},</if>
+            <if test="virtualHostsHttpRequestsTrend != null">#{virtualHostsHttpRequestsTrend},</if>
+            <if test="virtualHostsHttpActNumRequests != null">#{virtualHostsHttpActNumRequests},</if>
+            <if test="virtualHostsBytesRcvd != null">#{virtualHostsBytesRcvd},</if>
+            <if test="virtualHostsHttpRequests != null">#{virtualHostsHttpRequests},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHostHttp" parameterType="com.ruoyi.common.core.domain.HostHttp">
+        update host_http
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="time != null">time = #{time},</if>
+            <if test="ifId != null">if_id = #{ifId},</if>
+            <if test="ip != null">ip = #{ip},</if>
+            <if test="receiverRateResponse1xx != null">receiver_rate_response_1xx = #{receiverRateResponse1xx},</if>
+            <if test="receiverRateResponse2xx != null">receiver_rate_response_2xx = #{receiverRateResponse2xx},</if>
+            <if test="receiverRateResponse3xx != null">receiver_rate_response_3xx = #{receiverRateResponse3xx},</if>
+            <if test="receiverRateResponse4xx != null">receiver_rate_response_4xx = #{receiverRateResponse4xx},</if>
+            <if test="receiverRateResponse5xx != null">receiver_rate_response_5xx = #{receiverRateResponse5xx},</if>
+            <if test="receiverRateQueryHead != null">receiver_rate_query_head = #{receiverRateQueryHead},</if>
+            <if test="receiverRateQueryOther != null">receiver_rate_query_other = #{receiverRateQueryOther},</if>
+            <if test="receiverRateQueryPost != null">receiver_rate_query_post = #{receiverRateQueryPost},</if>
+            <if test="receiverRateQueryGet != null">receiver_rate_query_get = #{receiverRateQueryGet},</if>
+            <if test="receiverRateQueryPut != null">receiver_rate_query_put = #{receiverRateQueryPut},</if>
+            <if test="receiverResponseTotal != null">receiver_response_total = #{receiverResponseTotal},</if>
+            <if test="receiverResponseNum1xx != null">receiver_response_num_1xx = #{receiverResponseNum1xx},</if>
+            <if test="receiverResponseNum2xx != null">receiver_response_num_2xx = #{receiverResponseNum2xx},</if>
+            <if test="receiverResponseNum3xx != null">receiver_response_num_3xx = #{receiverResponseNum3xx},</if>
+            <if test="receiverResponseNum4xx != null">receiver_response_num_4xx = #{receiverResponseNum4xx},</if>
+            <if test="receiverResponseNum5xx != null">receiver_response_num_5xx = #{receiverResponseNum5xx},</if>
+            <if test="receiverQueryNumOther != null">receiver_query_num_other = #{receiverQueryNumOther},</if>
+            <if test="receiverQueryNumPost != null">receiver_query_num_post = #{receiverQueryNumPost},</if>
+            <if test="receiverQueryTotal != null">receiver_query_total = #{receiverQueryTotal},</if>
+            <if test="receiverQueryNumPut != null">receiver_query_num_put = #{receiverQueryNumPut},</if>
+            <if test="receiverQueryNumGet != null">receiver_query_num_get = #{receiverQueryNumGet},</if>
+            <if test="receiverQueryNumHead != null">receiver_query_num_head = #{receiverQueryNumHead},</if>
+            <if test="senderRateResponse1xx != null">sender_rate_response_1xx = #{senderRateResponse1xx},</if>
+            <if test="senderRateResponse2xx != null">sender_rate_response_2xx = #{senderRateResponse2xx},</if>
+            <if test="senderRateResponse3xx != null">sender_rate_response_3xx = #{senderRateResponse3xx},</if>
+            <if test="senderRateResponse4xx != null">sender_rate_response_4xx = #{senderRateResponse4xx},</if>
+            <if test="senderRateResponse5xx != null">sender_rate_response_5xx = #{senderRateResponse5xx},</if>
+            <if test="senderRateQueryHead != null">sender_rate_query_head = #{senderRateQueryHead},</if>
+            <if test="senderRateQueryOther != null">sender_rate_query_other = #{senderRateQueryOther},</if>
+            <if test="senderRateQueryPost != null">sender_rate_query_post = #{senderRateQueryPost},</if>
+            <if test="senderRateQueryGet != null">sender_rate_query_get = #{senderRateQueryGet},</if>
+            <if test="senderRateQueryPut != null">sender_rate_query_put = #{senderRateQueryPut},</if>
+            <if test="senderResponseTotal != null">sender_response_total = #{senderResponseTotal},</if>
+            <if test="senderResponseNum1xx != null">sender_response_num_1xx = #{senderResponseNum1xx},</if>
+            <if test="senderResponseNum2xx != null">sender_response_num_2xx = #{senderResponseNum2xx},</if>
+            <if test="senderResponseNum3xx != null">sender_response_num_3xx = #{senderResponseNum3xx},</if>
+            <if test="senderResponseNum4xx != null">sender_response_num_4xx = #{senderResponseNum4xx},</if>
+            <if test="senderResponseNum5xx != null">sender_response_num_5xx = #{senderResponseNum5xx},</if>
+            <if test="senderQueryNumOther != null">sender_query_num_other = #{senderQueryNumOther},</if>
+            <if test="senderQueryNumPost != null">sender_query_num_post = #{senderQueryNumPost},</if>
+            <if test="senderQueryTotal != null">sender_query_total = #{senderQueryTotal},</if>
+            <if test="senderQueryNumPut != null">sender_query_num_put = #{senderQueryNumPut},</if>
+            <if test="senderQueryNumGet != null">sender_query_num_get = #{senderQueryNumGet},</if>
+            <if test="senderQueryNumHead != null">sender_query_num_head = #{senderQueryNumHead},</if>
+            <if test="virtualHostsName != null">virtual_hosts_name = #{virtualHostsName},</if>
+            <if test="virtualHostsBytesSent != null">virtual_hosts_bytes_sent = #{virtualHostsBytesSent},</if>
+            <if test="virtualHostsHttpRequestsTrend != null">virtual_hosts_http_requests_trend = #{virtualHostsHttpRequestsTrend},</if>
+            <if test="virtualHostsHttpActNumRequests != null">virtual_hosts_http_act_num_requests = #{virtualHostsHttpActNumRequests},</if>
+            <if test="virtualHostsBytesRcvd != null">virtual_hosts_bytes_rcvd = #{virtualHostsBytesRcvd},</if>
+            <if test="virtualHostsHttpRequests != null">virtual_hosts_http_requests = #{virtualHostsHttpRequests},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHostHttpById" parameterType="Long">
+        delete from host_http where id = #{id}
+    </delete>
+
+    <delete id="deleteHostHttpByIds" parameterType="String">
+        delete from host_http where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
