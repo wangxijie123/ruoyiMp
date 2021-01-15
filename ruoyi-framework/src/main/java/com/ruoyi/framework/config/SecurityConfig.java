@@ -98,6 +98,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .authorizeRequests()
                 // 对于登录login 验证码captchaImage 允许匿名访问
                 .antMatchers("/login", "/captchaImage").anonymous()
+                //小程序专用 无需验证登录
+                .antMatchers("/wx/system/**","/system/upload").permitAll()
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",
@@ -105,13 +107,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
+                .antMatchers("/tool/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/getInfo").authenticated()
+                .antMatchers(HttpMethod.POST,"/i**/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/common/**").permitAll()
+                //测试环境 关闭接口登录验证
+//                .antMatchers("/system/**","/org/**").permitAll()
+                .antMatchers("/system/**","/org/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/asset/**").permitAll()
+                .antMatchers(HttpMethod.PUT,"/asset/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/asset/**").permitAll()
                 .antMatchers("/profile/**").anonymous()
-                .antMatchers("/system/**").permitAll()
-//                .antMatchers("/captchaImage").anonymous()
                 .antMatchers("/common/download**").anonymous()
                 .antMatchers("/common/download/resource**").anonymous()
-                .antMatchers("/swagger-ui.html").anonymous()
-                .antMatchers("/swagger-resources/**").anonymous()
                 .antMatchers("/webjars/**").anonymous()
                 .antMatchers("/*/api-docs").anonymous()
                 .antMatchers("/druid/**").anonymous()
