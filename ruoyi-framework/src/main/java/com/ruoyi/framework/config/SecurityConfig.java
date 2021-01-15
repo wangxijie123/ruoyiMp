@@ -112,8 +112,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers(HttpMethod.POST,"/i**/**").authenticated()
                 .antMatchers(HttpMethod.POST,"/common/**").permitAll()
                 //测试环境 关闭接口登录验证
-//                .antMatchers("/system/**","/org/**").permitAll()
-                .antMatchers("/system/**","/org/**").authenticated()
+                .antMatchers("/system/**","/org/**").permitAll()
+//                .antMatchers("/system/**","/org/**").authenticated()
                 .antMatchers(HttpMethod.POST,"/asset/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/asset/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/asset/**").permitAll()

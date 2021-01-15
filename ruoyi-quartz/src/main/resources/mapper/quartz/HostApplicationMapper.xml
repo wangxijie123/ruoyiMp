@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.HostApplicationMapper">
+    
+    <resultMap type="HostApplication" id="HostApplicationResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="duration"    column="duration"    />
+        <result property="bytesSent"    column="bytes_sent"    />
+        <result property="packetsRcvd"    column="packets_rcvd"    />
+        <result property="numFlows"    column="num_flows"    />
+        <result property="bytesRcvd"    column="bytes_rcvd"    />
+        <result property="packetsSent"    column="packets_sent"    />
+        <result property="breed"    column="breed"    />
+        <result property="time"    column="time"    />
+        <result property="ifId"    column="if_id"    />
+        <result property="ip"    column="ip"    />
+    </resultMap>
+
+    <sql id="selectHostApplicationVo">
+        select id, name, duration, bytes_sent, packets_rcvd, num_flows, bytes_rcvd, packets_sent, breed, time, if_id, ip from host_application
+    </sql>
+
+    <select id="selectHostApplicationList" parameterType="HostApplication" resultMap="HostApplicationResult">
+        <include refid="selectHostApplicationVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="duration != null "> and duration = #{duration}</if>
+            <if test="bytesSent != null "> and bytes_sent = #{bytesSent}</if>
+            <if test="packetsRcvd != null "> and packets_rcvd = #{packetsRcvd}</if>
+            <if test="numFlows != null "> and num_flows = #{numFlows}</if>
+            <if test="bytesRcvd != null "> and bytes_rcvd = #{bytesRcvd}</if>
+            <if test="packetsSent != null "> and packets_sent = #{packetsSent}</if>
+            <if test="breed != null  and breed != ''"> and breed = #{breed}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="ifId != null "> and if_id = #{ifId}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+        </where>
+    </select>
+    
+    <select id="selectHostApplicationById" parameterType="Long" resultMap="HostApplicationResult">
+        <include refid="selectHostApplicationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHostApplication" parameterType="HostApplication" useGeneratedKeys="true" keyProperty="id">
+        insert into host_application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="duration != null">duration,</if>
+            <if test="bytesSent != null">bytes_sent,</if>
+            <if test="packetsRcvd != null">packets_rcvd,</if>
+            <if test="numFlows != null">num_flows,</if>
+            <if test="bytesRcvd != null">bytes_rcvd,</if>
+            <if test="packetsSent != null">packets_sent,</if>
+            <if test="breed != null">breed,</if>
+            <if test="time != null">time,</if>
+            <if test="ifId != null">if_id,</if>
+            <if test="ip != null">ip,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="bytesSent != null">#{bytesSent},</if>
+            <if test="packetsRcvd != null">#{packetsRcvd},</if>
+            <if test="numFlows != null">#{numFlows},</if>
+            <if test="bytesRcvd != null">#{bytesRcvd},</if>
+            <if test="packetsSent != null">#{packetsSent},</if>
+            <if test="breed != null">#{breed},</if>
+            <if test="time != null">#{time},</if>
+            <if test="ifId != null">#{ifId},</if>
+            <if test="ip != null">#{ip},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHostApplication" parameterType="HostApplication">
+        update host_application
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="bytesSent != null">bytes_sent = #{bytesSent},</if>
+            <if test="packetsRcvd != null">packets_rcvd = #{packetsRcvd},</if>
+            <if test="numFlows != null">num_flows = #{numFlows},</if>
+            <if test="bytesRcvd != null">bytes_rcvd = #{bytesRcvd},</if>
+            <if test="packetsSent != null">packets_sent = #{packetsSent},</if>
+            <if test="breed != null">breed = #{breed},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="ifId != null">if_id = #{ifId},</if>
+            <if test="ip != null">ip = #{ip},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHostApplicationById" parameterType="Long">
+        delete from host_application where id = #{id}
+    </delete>
+
+    <delete id="deleteHostApplicationByIds" parameterType="String">
+        delete from host_application where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

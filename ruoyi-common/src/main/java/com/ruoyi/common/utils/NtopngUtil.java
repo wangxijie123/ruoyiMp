@@ -591,6 +591,12 @@ ifid	query	Interface identifier	integer
         System.out.println("ntopng_host_data");
         json = ntopng_host_data("0", "10.76.135.45");
         System.out.println(json);
+
+//        System.out.println("ntopng_interface_stats_l7");
+//        json = ntopng_interface_stats_l7("0", "count");
+//        System.out.println(json);
+
+
         /*
 
         json = json.getJSONObject("rsp");
@@ -598,9 +604,7 @@ ifid	query	Interface identifier	integer
         System.out.println("ntopng_interface_address");
         json = ntopng_interface_address("0");
         System.out.println(json);
-        System.out.println("ntopng_interface_stats_l7");
-        json = ntopng_interface_stats_l7("0", "count");
-        System.out.println(json);
+
         System.out.println("ntopng_stats_dscp");
         json = ntopng_stats_dscp("0");
         System.out.println(json);

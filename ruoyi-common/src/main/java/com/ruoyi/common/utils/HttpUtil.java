@@ -10,6 +10,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.AuthCache;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -367,6 +368,8 @@ public class HttpUtil {
     public static HttpResult doGet(CloseableHttpClient client, String url, Map<String, String>headers) throws IOException {
         //创建GET请求
         HttpGet get = new HttpGet(url);
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(30000).setConnectTimeout(6000).build();
+        get.setConfig(requestConfig);
         if(headers != null && headers.size() > 0){
             for(Map.Entry<String, String> m : headers.entrySet()){
                 get.addHeader(m.getKey(), m.getValue());

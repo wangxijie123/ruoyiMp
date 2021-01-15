@@ -63,4 +63,6 @@ public interface InterfaceHostsMapper
 
     void deleteAll();
 
+    List<String> selectAllIp();
+
 }
