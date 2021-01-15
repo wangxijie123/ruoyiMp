@@ -1,5 +1,7 @@
 package com.ruoyi.quartz.service;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.List;
 
 /**
@@ -11,5 +13,7 @@ import java.util.List;
 public interface IHostHttpService 
 {
 
-    void insert();
+    void insertTest();
+
+    void insert(JSONObject json ,String ip);
 }

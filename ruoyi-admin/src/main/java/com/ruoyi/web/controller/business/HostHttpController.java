@@ -23,6 +23,6 @@ public class HostHttpController extends BaseController
 
     @GetMapping("/")
     public void get(){
-        service.insert();
+        service.insertTest();
     }
 }

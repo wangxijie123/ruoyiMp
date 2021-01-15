@@ -13,4 +13,6 @@ import java.util.List;
 public interface IInterfaceHostsService 
 {
     public void insert();
+
+    List<String> selectAllIp();
 }
