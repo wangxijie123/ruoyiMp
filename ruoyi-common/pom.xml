@@ -17,6 +17,8 @@
 
     <dependencies>
 
+
+
         <!-- Spring框架基本的核心工具 -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -155,8 +157,11 @@
             <artifactId>influxdb-java</artifactId>
             <version>2.20</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>

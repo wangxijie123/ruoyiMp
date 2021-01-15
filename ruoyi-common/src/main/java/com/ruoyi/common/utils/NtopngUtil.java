@@ -1,6 +1,7 @@
 package com.ruoyi.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.ruoyi.common.core.domain.HttpResult;
 import com.ruoyi.common.utils.sign.Base64;
 
@@ -583,13 +584,13 @@ ifid	query	Interface identifier	integer
 //        json = ntopng_alert_data("0", "historical", "", "", "", "");
 //        System.out.println(json);
 
-        System.out.println("ntopng_interface_hosts");
-        json = ntopng_interface_hosts("0", "", "", "","", "", "");
-        System.out.println(json);
-//
-//        System.out.println("ntopng_host_data");
-//        json = ntopng_host_data("0", "10.76.135.45");
+//        System.out.println("ntopng_interface_hosts");
+//        json = ntopng_interface_hosts("0", "", "", "","", "", "");
 //        System.out.println(json);
+
+        System.out.println("ntopng_host_data");
+        json = ntopng_host_data("0", "10.76.135.45");
+        System.out.println(json);
         /*
 
         json = json.getJSONObject("rsp");

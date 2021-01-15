@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.InterfaceHostsMapper">
+    
+    <resultMap type="InterfaceHosts" id="InterfaceHostsResult">
+        <result property="id"    column="id"    />
+        <result property="ifId"    column="if_id"    />
+        <result property="country"    column="country"    />
+        <result property="firstSeen"    column="first_seen"    />
+        <result property="lastSeen"    column="last_seen"    />
+        <result property="os"    column="os"    />
+        <result property="ip"    column="ip"    />
+        <result property="isBlacklisted"    column="is_blacklisted"    />
+        <result property="isBroadcast"    column="is_broadcast"    />
+        <result property="isMulticast"    column="is_multicast"    />
+        <result property="isLocalhost"    column="is_localhost"    />
+        <result property="isBroadcastDomain"    column="is_broadcast_domain"    />
+        <result property="vlan"    column="vlan"    />
+        <result property="name"    column="name"    />
+        <result property="numAlerts"    column="num_alerts"    />
+        <result property="numFlowsAsClient"    column="num_flows_as_client"    />
+        <result property="numFlowsTotal"    column="num_flows_total"    />
+        <result property="numFlowsAsServer"    column="num_flows_as_server"    />
+        <result property="thptPps"    column="thpt_pps"    />
+        <result property="thptBps"    column="thpt_bps"    />
+        <result property="bytesTotal"    column="bytes_total"    />
+        <result property="bytesRecvd"    column="bytes_recvd"    />
+        <result property="bytesSent"    column="bytes_sent"    />
+    </resultMap>
+
+    <sql id="selectInterfaceHostsVo">
+        select id, if_id, country, first_seen, last_seen, os, ip, is_blacklisted, is_broadcast, is_multicast, is_localhost, is_broadcast_domain, vlan, name, num_alerts, num_flows_as_client, num_flows_total, num_flows_as_server, thpt_pps, thpt_bps, bytes_total, bytes_recvd, bytes_sent from interface_hosts
+    </sql>
+
+    <select id="selectInterfaceHostsList" parameterType="InterfaceHosts" resultMap="InterfaceHostsResult">
+        <include refid="selectInterfaceHostsVo"/>
+        <where>  
+            <if test="ifId != null "> and if_id = #{ifId}</if>
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="firstSeen != null "> and first_seen = #{firstSeen}</if>
+            <if test="lastSeen != null "> and last_seen = #{lastSeen}</if>
+            <if test="os != null "> and os = #{os}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="isBlacklisted != null "> and is_blacklisted = #{isBlacklisted}</if>
+            <if test="isBroadcast != null "> and is_broadcast = #{isBroadcast}</if>
+            <if test="isMulticast != null "> and is_multicast = #{isMulticast}</if>
+            <if test="isLocalhost != null "> and is_localhost = #{isLocalhost}</if>
+            <if test="isBroadcastDomain != null "> and is_broadcast_domain = #{isBroadcastDomain}</if>
+            <if test="vlan != null "> and vlan = #{vlan}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="numAlerts != null "> and num_alerts = #{numAlerts}</if>
+            <if test="numFlowsAsClient != null "> and num_flows_as_client = #{numFlowsAsClient}</if>
+            <if test="numFlowsTotal != null "> and num_flows_total = #{numFlowsTotal}</if>
+            <if test="numFlowsAsServer != null "> and num_flows_as_server = #{numFlowsAsServer}</if>
+            <if test="thptPps != null "> and thpt_pps = #{thptPps}</if>
+            <if test="thptBps != null "> and thpt_bps = #{thptBps}</if>
+            <if test="bytesTotal != null "> and bytes_total = #{bytesTotal}</if>
+            <if test="bytesRecvd != null "> and bytes_recvd = #{bytesRecvd}</if>
+            <if test="bytesSent != null "> and bytes_sent = #{bytesSent}</if>
+        </where>
+    </select>
+    
+    <select id="selectInterfaceHostsById" parameterType="Long" resultMap="InterfaceHostsResult">
+        <include refid="selectInterfaceHostsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertInterfaceHosts" parameterType="InterfaceHosts" useGeneratedKeys="true" keyProperty="id">
+        insert into interface_hosts
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ifId != null">if_id,</if>
+            <if test="country != null">country,</if>
+            <if test="firstSeen != null">first_seen,</if>
+            <if test="lastSeen != null">last_seen,</if>
+            <if test="os != null">os,</if>
+            <if test="ip != null">ip,</if>
+            <if test="isBlacklisted != null">is_blacklisted,</if>
+            <if test="isBroadcast != null">is_broadcast,</if>
+            <if test="isMulticast != null">is_multicast,</if>
+            <if test="isLocalhost != null">is_localhost,</if>
+            <if test="isBroadcastDomain != null">is_broadcast_domain,</if>
+            <if test="vlan != null">vlan,</if>
+            <if test="name != null">name,</if>
+            <if test="numAlerts != null">num_alerts,</if>
+            <if test="numFlowsAsClient != null">num_flows_as_client,</if>
+            <if test="numFlowsTotal != null">num_flows_total,</if>
+            <if test="numFlowsAsServer != null">num_flows_as_server,</if>
+            <if test="thptPps != null">thpt_pps,</if>
+            <if test="thptBps != null">thpt_bps,</if>
+            <if test="bytesTotal != null">bytes_total,</if>
+            <if test="bytesRecvd != null">bytes_recvd,</if>
+            <if test="bytesSent != null">bytes_sent,</if>
+            <if test="time != null">time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ifId != null">#{ifId},</if>
+            <if test="country != null">#{country},</if>
+            <if test="firstSeen != null">#{firstSeen},</if>
+            <if test="lastSeen != null">#{lastSeen},</if>
+            <if test="os != null">#{os},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="isBlacklisted != null">#{isBlacklisted},</if>
+            <if test="isBroadcast != null">#{isBroadcast},</if>
+            <if test="isMulticast != null">#{isMulticast},</if>
+            <if test="isLocalhost != null">#{isLocalhost},</if>
+            <if test="isBroadcastDomain != null">#{isBroadcastDomain},</if>
+            <if test="vlan != null">#{vlan},</if>
+            <if test="name != null">#{name},</if>
+            <if test="numAlerts != null">#{numAlerts},</if>
+            <if test="numFlowsAsClient != null">#{numFlowsAsClient},</if>
+            <if test="numFlowsTotal != null">#{numFlowsTotal},</if>
+            <if test="numFlowsAsServer != null">#{numFlowsAsServer},</if>
+            <if test="thptPps != null">#{thptPps},</if>
+            <if test="thptBps != null">#{thptBps},</if>
+            <if test="bytesTotal != null">#{bytesTotal},</if>
+            <if test="bytesRecvd != null">#{bytesRecvd},</if>
+            <if test="bytesSent != null">#{bytesSent},</if>
+            <if test="time != null">#{time},</if>
+        </trim>
+    </insert>
+
+    <update id="updateInterfaceHosts" parameterType="InterfaceHosts">
+        update interface_hosts
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ifId != null">if_id = #{ifId},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="firstSeen != null">first_seen = #{firstSeen},</if>
+            <if test="lastSeen != null">last_seen = #{lastSeen},</if>
+            <if test="os != null">os = #{os},</if>
+            <if test="ip != null">ip = #{ip},</if>
+            <if test="isBlacklisted != null">is_blacklisted = #{isBlacklisted},</if>
+            <if test="isBroadcast != null">is_broadcast = #{isBroadcast},</if>
+            <if test="isMulticast != null">is_multicast = #{isMulticast},</if>
+            <if test="isLocalhost != null">is_localhost = #{isLocalhost},</if>
+            <if test="isBroadcastDomain != null">is_broadcast_domain = #{isBroadcastDomain},</if>
+            <if test="vlan != null">vlan = #{vlan},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="numAlerts != null">num_alerts = #{numAlerts},</if>
+            <if test="numFlowsAsClient != null">num_flows_as_client = #{numFlowsAsClient},</if>
+            <if test="numFlowsTotal != null">num_flows_total = #{numFlowsTotal},</if>
+            <if test="numFlowsAsServer != null">num_flows_as_server = #{numFlowsAsServer},</if>
+            <if test="thptPps != null">thpt_pps = #{thptPps},</if>
+            <if test="thptBps != null">thpt_bps = #{thptBps},</if>
+            <if test="bytesTotal != null">bytes_total = #{bytesTotal},</if>
+            <if test="bytesRecvd != null">bytes_recvd = #{bytesRecvd},</if>
+            <if test="bytesSent != null">bytes_sent = #{bytesSent},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteInterfaceHostsById" parameterType="Long">
+        delete from interface_hosts where id = #{id}
+    </delete>
+
+    <delete id="deleteInterfaceHostsByIds" parameterType="String">
+        delete from interface_hosts where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteAll">
+        delete from interface_hosts;
+    </delete>
+</mapper>
