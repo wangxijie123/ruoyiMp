@@ -50,7 +50,7 @@ public class InterfaceHostsServiceImpl implements IInterfaceHostsService
                 JSONObject num_flows = item.getJSONObject("num_flows");
                 JSONObject thpt = item.getJSONObject("thpt");
                 JSONObject bytes = item.getJSONObject("bytes");
-                InterfaceHosts interfaceHosts = new InterfaceHosts(0L,item.getString("country"),
+                InterfaceHosts interfaceHosts = new InterfaceHosts(0,item.getString("country"),
                         item.getLong("first_seen"),item.getLong("last_seen"), item.getLong("os"), item.getString("ip"), item.getInteger("is_blacklisted"),
                         item.getInteger("is_broadcast"), item.getInteger("is_multicast"), item.getInteger("is_localhost"), item.getInteger("is_broadcast_domain"),
                         item.getLong("vlan"), item.getString("name"), item.getLong("num_alerts"), num_flows.getLong("as_client"), num_flows.getLong("total"),

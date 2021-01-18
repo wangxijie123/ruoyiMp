@@ -58,7 +58,7 @@ public class HostHttpServiceImpl implements IHostHttpService {
                     Map<String, Long> buildReceiver = build(receiver);
                     JSONObject sender = http.getJSONObject("sender");
                     Map<String, Long> buildSender = build(sender);
-                    HostHttp hostHttp = new HostHttp(time, 0L, ip,
+                    HostHttp hostHttp = new HostHttp(time, 0, ip,
                             buildReceiver.get("1xx"),
                             buildReceiver.get("2xx"),
                             buildReceiver.get("3xx"),

@@ -17,7 +17,7 @@ public class InterfaceHosts extends BaseEntity
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private Long ifId;
+    private Integer ifId;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
@@ -108,7 +108,7 @@ public class InterfaceHosts extends BaseEntity
     public InterfaceHosts() {
     }
 
-    public InterfaceHosts(Long ifId, String country, Long firstSeen, Long lastSeen, Long os, String ip,
+    public InterfaceHosts(Integer ifId, String country, Long firstSeen, Long lastSeen, Long os, String ip,
                           Integer isBlacklisted, Integer isBroadcast, Integer isMulticast, Integer isLocalhost, Integer isBroadcastDomain,
                           Long vlan, String name, Long numAlerts, Long numFlowsAsClient, Long numFlowsTotal, Long numFlowsAsServer,
                           Double thptPps, Double thptBps, Long bytesTotal, Long bytesRecvd, Long bytesSent , Long time) {
@@ -147,11 +147,11 @@ public class InterfaceHosts extends BaseEntity
         return id;
     }
 
-    public Long getIfId() {
+    public Integer getIfId() {
         return ifId;
     }
 
-    public void setIfId(Long ifId) {
+    public void setIfId(Integer ifId) {
         this.ifId = ifId;
     }
 

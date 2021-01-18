@@ -56,7 +56,7 @@ public class HostApplication
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private Long ifId;
+    private Integer ifId;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
@@ -65,7 +65,7 @@ public class HostApplication
     public HostApplication() {
     }
 
-    public HostApplication(String name, Long duration, Long bytesSent, Long packetsRcvd, Long numFlows, Long bytesRcvd, Long packetsSent, String breed, Long time, Long ifId, String ip) {
+    public HostApplication(String name, Long duration, Long bytesSent, Long packetsRcvd, Long numFlows, Long bytesRcvd, Long packetsSent, String breed, Long time, Integer ifId, String ip) {
         this.name = name;
         this.duration = duration;
         this.bytesSent = bytesSent;
@@ -169,16 +169,16 @@ public class HostApplication
     {
         return time;
     }
-    public void setIfId(Long ifId) 
-    {
+
+    public Integer getIfId() {
+        return ifId;
+    }
+
+    public void setIfId(Integer ifId) {
         this.ifId = ifId;
     }
 
-    public Long getIfId() 
-    {
-        return ifId;
-    }
-    public void setIp(String ip) 
+    public void setIp(String ip)
     {
         this.ip = ip;
     }

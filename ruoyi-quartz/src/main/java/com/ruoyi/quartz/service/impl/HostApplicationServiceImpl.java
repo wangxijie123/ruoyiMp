@@ -63,7 +63,7 @@ public class HostApplicationServiceImpl implements IHostApplicationService {
                         JSONObject fo = (JSONObject) o;
                         HostApplication hostApplication = new HostApplication(key, fo.getLong("duration"), fo.getLong("bytes.send")
                                 , fo.getLong("packets.rcvd"), fo.getLong("num_flows"), fo.getLong("bytes.rcvd"),
-                                fo.getLong("packets.sent"), fo.getString("breed"), time, 0L, ip
+                                fo.getLong("packets.sent"), fo.getString("breed"), time, 0, ip
                         );
                         mapper.insertHostApplication(hostApplication);
                     }

@@ -24,7 +24,7 @@ public class HostHttp extends BaseEntity
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private Long ifId;
+    private Integer ifId;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
@@ -233,7 +233,7 @@ public class HostHttp extends BaseEntity
     public HostHttp() {
     }
 
-    public HostHttp(Long time, Long ifId, String ip, Long receiverRateResponse1xx, Long receiverRateResponse2xx, Long receiverRateResponse3xx, Long receiverRateResponse4xx, Long receiverRateResponse5xx, Long receiverRateQueryHead,
+    public HostHttp(Long time, Integer ifId, String ip, Long receiverRateResponse1xx, Long receiverRateResponse2xx, Long receiverRateResponse3xx, Long receiverRateResponse4xx, Long receiverRateResponse5xx, Long receiverRateQueryHead,
                     Long receiverRateQueryOther, Long receiverRateQueryPost, Long receiverRateQueryGet, Long receiverRateQueryPut, Long receiverResponseTotal, Long receiverResponseNum1xx, Long receiverResponseNum2xx,
                     Long receiverResponseNum3xx, Long receiverResponseNum4xx, Long receiverResponseNum5xx, Long receiverQueryNumOther, Long receiverQueryNumPost, Long receiverQueryTotal, Long receiverQueryNumPut,
                     Long receiverQueryNumGet, Long receiverQueryNumHead, Long senderRateResponse1xx, Long senderRateResponse2xx, Long senderRateResponse3xx, Long senderRateResponse4xx, Long senderRateResponse5xx,
@@ -288,7 +288,7 @@ public class HostHttp extends BaseEntity
         this.senderQueryNumHead = senderQueryNumHead;
     }
 
-    public HostHttp(Long time, Long ifId, String ip, Long receiverRateResponse1xx, Long receiverRateResponse2xx, Long receiverRateResponse3xx, Long receiverRateResponse4xx,
+    public HostHttp(Long time, Integer ifId, String ip, Long receiverRateResponse1xx, Long receiverRateResponse2xx, Long receiverRateResponse3xx, Long receiverRateResponse4xx,
                     Long receiverRateResponse5xx, Long receiverRateQueryHead, Long receiverRateQueryOther, Long receiverRateQueryPost, Long receiverRateQueryGet,
                     Long receiverRateQueryPut, Long receiverResponseTotal, Long receiverResponseNum1xx, Long receiverResponseNum2xx, Long receiverResponseNum3xx,
                     Long receiverResponseNum4xx, Long receiverResponseNum5xx, Long receiverQueryNumOther, Long receiverQueryNumPost, Long receiverQueryTotal, Long receiverQueryNumPut,
@@ -371,16 +371,16 @@ public class HostHttp extends BaseEntity
     {
         return time;
     }
-    public void setIfId(Long ifId) 
-    {
+
+    public Integer getIfId() {
+        return ifId;
+    }
+
+    public void setIfId(Integer ifId) {
         this.ifId = ifId;
     }
 
-    public Long getIfId() 
-    {
-        return ifId;
-    }
-    public void setIp(String ip) 
+    public void setIp(String ip)
     {
         this.ip = ip;
     }
