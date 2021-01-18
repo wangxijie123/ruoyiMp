@@ -67,4 +67,9 @@ public class InterfaceHostsServiceImpl implements IInterfaceHostsService
     public List<String> selectAllIp() {
         return mapper.selectAllIp();
     }
+
+    @Override
+    public List<InterfaceHosts> selectAll() {
+        return mapper.selectAll();
+    }
 }

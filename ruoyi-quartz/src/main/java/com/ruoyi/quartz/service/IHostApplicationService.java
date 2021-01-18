@@ -18,4 +18,5 @@ public interface IHostApplicationService
 
     void insert(JSONObject json , String ip);
 
+    List<HostApplication> getInfoByIp(String ip);
 }

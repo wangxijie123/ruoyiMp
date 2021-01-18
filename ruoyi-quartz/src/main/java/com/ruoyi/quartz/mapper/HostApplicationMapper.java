@@ -59,4 +59,6 @@ public interface HostApplicationMapper extends BaseMapper<HostApplication> {
      * @return 结果
      */
     public int deleteHostApplicationByIds(Long[] ids);
+
+    List<HostApplication> getInfoByIp(String ip);
 }

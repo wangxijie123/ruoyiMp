@@ -71,4 +71,9 @@ public class HostApplicationServiceImpl implements IHostApplicationService {
             }
         }
     }
+
+    @Override
+    public List<HostApplication> getInfoByIp(String ip) {
+        return mapper.getInfoByIp(ip);
+    }
 }

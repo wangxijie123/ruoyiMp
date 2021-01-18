@@ -15,4 +15,7 @@ public interface IInterfaceHostsService
     public void insert();
 
     List<String> selectAllIp();
+
+    List<InterfaceHosts> selectAll();
+
 }

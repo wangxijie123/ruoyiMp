@@ -65,4 +65,6 @@ public interface InterfaceHostsMapper
 
     List<String> selectAllIp();
 
+    List<InterfaceHosts> selectAll();
+
 }

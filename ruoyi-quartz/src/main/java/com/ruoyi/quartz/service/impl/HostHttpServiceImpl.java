@@ -122,6 +122,11 @@ public class HostHttpServiceImpl implements IHostHttpService {
         }
     }
 
+    @Override
+    public HostHttp getInfoByIp(String ip) {
+        return mapper.getInfoByIp(ip);
+    }
+
     private Map<String, Long> build(JSONObject json) {
         Map<String, Long> map = new HashMap<>();
         JSONObject rate = json.getJSONObject("rate");

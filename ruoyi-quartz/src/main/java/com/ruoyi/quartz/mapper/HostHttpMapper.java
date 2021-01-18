@@ -59,4 +59,6 @@ public interface HostHttpMapper
      * @return 结果
      */
     public int deleteHostHttpByIds(Long[] ids);
+
+    HostHttp getInfoByIp(String ip);
 }

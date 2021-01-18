@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.business;
 
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.quartz.service.IInterfaceHostsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,12 @@ public class InterfaceHostsController extends BaseController
     @GetMapping("/")
     public void get(){
         service.insert();
+    }
+
+    @GetMapping("/list")
+    public TableDataInfo getList(){
+        startPage();
+        return getDataTable(service.selectAll());
     }
 
 }

@@ -128,7 +128,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectHostHttpVo"/>
         where id = #{id}
     </select>
-        
+    <select id="getInfoByIp" resultMap="HostHttpResult">
+        select *
+        from host_http where ip = #{ip} order by time desc limit 1;
+    </select>
+
     <insert id="insertHostHttp" parameterType="com.ruoyi.common.core.domain.HostHttp" useGeneratedKeys="true" keyProperty="id">
         insert into host_http
         <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.quartz.mapper.InterfaceHostsMapper">
     
-    <resultMap type="InterfaceHosts" id="InterfaceHostsResult">
+    <resultMap type="com.ruoyi.common.core.domain.InterfaceHosts" id="InterfaceHostsResult">
         <result property="id"    column="id"    />
         <result property="ifId"    column="if_id"    />
         <result property="country"    column="country"    />
@@ -68,6 +68,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     <select id="selectAllIp" resultType="java.lang.String">
         select ip
+        from interface_hosts;
+    </select>
+    <select id="selectAll" resultMap="InterfaceHostsResult">
+        select *
         from interface_hosts;
     </select>
 

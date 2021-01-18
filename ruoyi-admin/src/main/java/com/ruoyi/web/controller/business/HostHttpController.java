@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.business;
 
 import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.quartz.service.IHostHttpService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +25,10 @@ public class HostHttpController extends BaseController
     @GetMapping("/")
     public void get(){
         service.insertTest();
+    }
+
+    @GetMapping("/infoByIp")
+    public AjaxResult getInfoByIp(String ip){
+        return AjaxResult.success(service.getInfoByIp(ip));
     }
 }
