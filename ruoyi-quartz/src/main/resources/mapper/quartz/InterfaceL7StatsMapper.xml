@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.InterfaceL7StatsMapper">
+    
+    <resultMap type="InterfaceL7Stats" id="InterfaceL7StatsResult">
+        <result property="id"    column="id"    />
+        <result property="time"    column="time"    />
+        <result property="ifId"    column="if_id"    />
+        <result property="label"    column="label"    />
+        <result property="value"    column="value"    />
+        <result property="url"    column="url"    />
+    </resultMap>
+
+    <sql id="selectInterfaceL7StatsVo">
+        select id, time, if_id, label, value, url from interface_l7_stats
+    </sql>
+
+    <select id="selectInterfaceL7StatsList" parameterType="InterfaceL7Stats" resultMap="InterfaceL7StatsResult">
+        <include refid="selectInterfaceL7StatsVo"/>
+        <where>  
+            <if test="time != null "> and time = #{time}</if>
+            <if test="ifId != null "> and if_id = #{ifId}</if>
+            <if test="label != null  and label != ''"> and label = #{label}</if>
+            <if test="value != null "> and value = #{value}</if>
+            <if test="url != null  and url != ''"> and url = #{url}</if>
+        </where>
+    </select>
+    
+    <select id="selectInterfaceL7StatsById" parameterType="Long" resultMap="InterfaceL7StatsResult">
+        <include refid="selectInterfaceL7StatsVo"/>
+        where id = #{id}
+    </select>
+    <select id="getList" resultMap="InterfaceL7StatsResult">
+        select *
+        from interface_l7_stats where time = (select max(time) from interface_l7_stats);
+    </select>
+
+    <insert id="insertInterfaceL7Stats" parameterType="InterfaceL7Stats" useGeneratedKeys="true" keyProperty="id">
+        insert into interface_l7_stats
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="time != null">time,</if>
+            <if test="ifId != null">if_id,</if>
+            <if test="label != null">label,</if>
+            <if test="value != null">value,</if>
+            <if test="url != null">url,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="time != null">#{time},</if>
+            <if test="ifId != null">#{ifId},</if>
+            <if test="label != null">#{label},</if>
+            <if test="value != null">#{value},</if>
+            <if test="url != null">#{url},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInterfaceL7Stats" parameterType="InterfaceL7Stats">
+        update interface_l7_stats
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="time != null">time = #{time},</if>
+            <if test="ifId != null">if_id = #{ifId},</if>
+            <if test="label != null">label = #{label},</if>
+            <if test="value != null">value = #{value},</if>
+            <if test="url != null">url = #{url},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteInterfaceL7StatsById" parameterType="Long">
+        delete from interface_l7_stats where id = #{id}
+    </delete>
+
+    <delete id="deleteInterfaceL7StatsByIds" parameterType="String">
+        delete from interface_l7_stats where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

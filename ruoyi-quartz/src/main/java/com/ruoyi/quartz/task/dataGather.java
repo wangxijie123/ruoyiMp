@@ -2,10 +2,7 @@ package com.ruoyi.quartz.task;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.utils.NtopngUtil;
-import com.ruoyi.quartz.service.IHostApplicationService;
-import com.ruoyi.quartz.service.IHostHttpService;
-import com.ruoyi.quartz.service.IInterfaceDataService;
-import com.ruoyi.quartz.service.IInterfaceHostsService;
+import com.ruoyi.quartz.service.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -32,10 +29,14 @@ public class dataGather {
     @Resource
     private IInterfaceDataService interfaceDataService;
 
+    @Resource
+    private IInterfaceL7StatsService interfaceL7StatsService;
+
     @Scheduled(cron = "*/15 * * * * ?")
     public void run(){
         interfaceHostsService.insert();
         interfaceDataService.insert();
+        interfaceL7StatsService.insert();
         insertOther();
     }
 
