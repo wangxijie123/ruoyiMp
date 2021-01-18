@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.InterfaceDataMapper">
+    
+    <resultMap type="com.ruoyi.common.core.domain.InterfaceData" id="InterfaceDataResult">
+        <result property="id"    column="id"    />
+        <result property="time"    column="time"    />
+        <result property="ifId"    column="if_id"    />
+        <result property="ifName"    column="if_name"    />
+        <result property="uptime"    column="uptime"    />
+        <result property="numFlows"    column="num_flows"    />
+        <result property="numDevices"    column="num_devices"    />
+        <result property="numLiveCaptures"    column="num_live_captures"    />
+        <result property="numHosts"    column="num_hosts"    />
+        <result property="droppedAlerts"    column="dropped_alerts"    />
+        <result property="epoch"    column="epoch"    />
+        <result property="alertedFlowsNotice"    column="alerted_flows_notice"    />
+        <result property="alertedFlowsWarning"    column="alerted_flows_warning"    />
+        <result property="speed"    column="speed"    />
+        <result property="packets"    column="packets"    />
+        <result property="bytesDownload"    column="bytes_download"    />
+        <result property="bytesUpload"    column="bytes_upload"    />
+        <result property="packetsDownload"    column="packets_download"    />
+        <result property="packetsUpload"    column="packets_upload"    />
+        <result property="local2remote"    column="local2remote"    />
+        <result property="remote2local"    column="remote2local"    />
+        <result property="throughputBps"    column="throughput_bps"    />
+        <result property="throughputPps"    column="throughput_pps"    />
+        <result property="drops"    column="drops"    />
+        <result property="flowsPctg"    column="flows_pctg"    />
+        <result property="hostsPctg"    column="hosts_pctg"    />
+        <result property="periodicStatsUpdateFrequencySecs"    column="periodic_stats_update_frequency_secs"    />
+        <result property="bytes"    column="bytes"    />
+        <result property="remoteBps"    column="remote_bps"    />
+        <result property="alertedFlows"    column="alerted_flows"    />
+        <result property="engagedAlerts"    column="engaged_alerts"    />
+        <result property="tcpPacketOutOfOrder"    column="tcp_packet_out_of_order"    />
+        <result property="tcpPacketLost"    column="tcp_packet_lost"    />
+        <result property="tcpPacketRetransmissions"    column="tcp_packet_retransmissions"    />
+        <association property="systemHostStats" column="time" select="com.ruoyi.quartz.mapper.SystemHostStatsMapper.getInfo"/>
+    </resultMap>
+
+    <sql id="selectInterfaceDataVo">
+        select id, time, if_id, if_name, uptime, num_flows, num_devices, num_live_captures, num_hosts, dropped_alerts, epoch, alerted_flows_notice, alerted_flows_warning, speed, packets, bytes_download, bytes_upload, packets_download, packets_upload, local2remote, remote2local, throughput_bps, throughput_pps, drops, flows_pctg, hosts_pctg, periodic_stats_update_frequency_secs, bytes, remote_bps, alerted_flows, engaged_alerts, tcp_packet_out_of_order, tcp_packet_lost, tcp_packet_retransmissions from interface_data
+    </sql>
+
+    <select id="selectInterfaceDataList" parameterType="InterfaceData" resultMap="InterfaceDataResult">
+        <include refid="selectInterfaceDataVo"/>
+        <where>  
+            <if test="time != null "> and time = #{time}</if>
+            <if test="ifId != null "> and if_id = #{ifId}</if>
+            <if test="ifName != null  and ifName != ''"> and if_name like concat('%', #{ifName}, '%')</if>
+            <if test="uptime != null  and uptime != ''"> and uptime = #{uptime}</if>
+            <if test="numFlows != null "> and num_flows = #{numFlows}</if>
+            <if test="numDevices != null "> and num_devices = #{numDevices}</if>
+            <if test="numLiveCaptures != null "> and num_live_captures = #{numLiveCaptures}</if>
+            <if test="numHosts != null "> and num_hosts = #{numHosts}</if>
+            <if test="droppedAlerts != null "> and dropped_alerts = #{droppedAlerts}</if>
+            <if test="epoch != null "> and epoch = #{epoch}</if>
+            <if test="alertedFlowsNotice != null "> and alerted_flows_notice = #{alertedFlowsNotice}</if>
+            <if test="alertedFlowsWarning != null "> and alerted_flows_warning = #{alertedFlowsWarning}</if>
+            <if test="speed != null "> and speed = #{speed}</if>
+            <if test="packets != null "> and packets = #{packets}</if>
+            <if test="bytesDownload != null "> and bytes_download = #{bytesDownload}</if>
+            <if test="bytesUpload != null "> and bytes_upload = #{bytesUpload}</if>
+            <if test="packetsDownload != null "> and packets_download = #{packetsDownload}</if>
+            <if test="packetsUpload != null "> and packets_upload = #{packetsUpload}</if>
+            <if test="local2remote != null "> and local2remote = #{local2remote}</if>
+            <if test="remote2local != null "> and remote2local = #{remote2local}</if>
+            <if test="throughputBps != null "> and throughput_bps = #{throughputBps}</if>
+            <if test="throughputPps != null "> and throughput_pps = #{throughputPps}</if>
+            <if test="drops != null "> and drops = #{drops}</if>
+            <if test="flowsPctg != null "> and flows_pctg = #{flowsPctg}</if>
+            <if test="hostsPctg != null "> and hosts_pctg = #{hostsPctg}</if>
+            <if test="periodicStatsUpdateFrequencySecs != null "> and periodic_stats_update_frequency_secs = #{periodicStatsUpdateFrequencySecs}</if>
+            <if test="bytes != null "> and bytes = #{bytes}</if>
+            <if test="remoteBps != null "> and remote_bps = #{remoteBps}</if>
+            <if test="alertedFlows != null "> and alerted_flows = #{alertedFlows}</if>
+            <if test="engagedAlerts != null "> and engaged_alerts = #{engagedAlerts}</if>
+            <if test="tcpPacketOutOfOrder != null "> and tcp_packet_out_of_order = #{tcpPacketOutOfOrder}</if>
+            <if test="tcpPacketLost != null "> and tcp_packet_lost = #{tcpPacketLost}</if>
+            <if test="tcpPacketRetransmissions != null "> and tcp_packet_retransmissions = #{tcpPacketRetransmissions}</if>
+        </where>
+    </select>
+    
+    <select id="selectInterfaceDataById" parameterType="Long" resultMap="InterfaceDataResult">
+        <include refid="selectInterfaceDataVo"/>
+        where id = #{id}
+    </select>
+    <select id="getInfo" resultMap="InterfaceDataResult">
+        select *
+        from interface_data order by time desc limit 1;
+    </select>
+
+    <insert id="insertInterfaceData" parameterType="InterfaceData" useGeneratedKeys="true" keyProperty="id">
+        insert into interface_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="time != null">time,</if>
+            <if test="ifId != null">if_id,</if>
+            <if test="ifName != null">if_name,</if>
+            <if test="uptime != null">uptime,</if>
+            <if test="numFlows != null">num_flows,</if>
+            <if test="numDevices != null">num_devices,</if>
+            <if test="numLiveCaptures != null">num_live_captures,</if>
+            <if test="numHosts != null">num_hosts,</if>
+            <if test="droppedAlerts != null">dropped_alerts,</if>
+            <if test="epoch != null">epoch,</if>
+            <if test="alertedFlowsNotice != null">alerted_flows_notice,</if>
+            <if test="alertedFlowsWarning != null">alerted_flows_warning,</if>
+            <if test="speed != null">speed,</if>
+            <if test="packets != null">packets,</if>
+            <if test="bytesDownload != null">bytes_download,</if>
+            <if test="bytesUpload != null">bytes_upload,</if>
+            <if test="packetsDownload != null">packets_download,</if>
+            <if test="packetsUpload != null">packets_upload,</if>
+            <if test="local2remote != null">local2remote,</if>
+            <if test="remote2local != null">remote2local,</if>
+            <if test="throughputBps != null">throughput_bps,</if>
+            <if test="throughputPps != null">throughput_pps,</if>
+            <if test="drops != null">drops,</if>
+            <if test="flowsPctg != null">flows_pctg,</if>
+            <if test="hostsPctg != null">hosts_pctg,</if>
+            <if test="periodicStatsUpdateFrequencySecs != null">periodic_stats_update_frequency_secs,</if>
+            <if test="bytes != null">bytes,</if>
+            <if test="remoteBps != null">remote_bps,</if>
+            <if test="alertedFlows != null">alerted_flows,</if>
+            <if test="engagedAlerts != null">engaged_alerts,</if>
+            <if test="tcpPacketOutOfOrder != null">tcp_packet_out_of_order,</if>
+            <if test="tcpPacketLost != null">tcp_packet_lost,</if>
+            <if test="tcpPacketRetransmissions != null">tcp_packet_retransmissions,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="time != null">#{time},</if>
+            <if test="ifId != null">#{ifId},</if>
+            <if test="ifName != null">#{ifName},</if>
+            <if test="uptime != null">#{uptime},</if>
+            <if test="numFlows != null">#{numFlows},</if>
+            <if test="numDevices != null">#{numDevices},</if>
+            <if test="numLiveCaptures != null">#{numLiveCaptures},</if>
+            <if test="numHosts != null">#{numHosts},</if>
+            <if test="droppedAlerts != null">#{droppedAlerts},</if>
+            <if test="epoch != null">#{epoch},</if>
+            <if test="alertedFlowsNotice != null">#{alertedFlowsNotice},</if>
+            <if test="alertedFlowsWarning != null">#{alertedFlowsWarning},</if>
+            <if test="speed != null">#{speed},</if>
+            <if test="packets != null">#{packets},</if>
+            <if test="bytesDownload != null">#{bytesDownload},</if>
+            <if test="bytesUpload != null">#{bytesUpload},</if>
+            <if test="packetsDownload != null">#{packetsDownload},</if>
+            <if test="packetsUpload != null">#{packetsUpload},</if>
+            <if test="local2remote != null">#{local2remote},</if>
+            <if test="remote2local != null">#{remote2local},</if>
+            <if test="throughputBps != null">#{throughputBps},</if>
+            <if test="throughputPps != null">#{throughputPps},</if>
+            <if test="drops != null">#{drops},</if>
+            <if test="flowsPctg != null">#{flowsPctg},</if>
+            <if test="hostsPctg != null">#{hostsPctg},</if>
+            <if test="periodicStatsUpdateFrequencySecs != null">#{periodicStatsUpdateFrequencySecs},</if>
+            <if test="bytes != null">#{bytes},</if>
+            <if test="remoteBps != null">#{remoteBps},</if>
+            <if test="alertedFlows != null">#{alertedFlows},</if>
+            <if test="engagedAlerts != null">#{engagedAlerts},</if>
+            <if test="tcpPacketOutOfOrder != null">#{tcpPacketOutOfOrder},</if>
+            <if test="tcpPacketLost != null">#{tcpPacketLost},</if>
+            <if test="tcpPacketRetransmissions != null">#{tcpPacketRetransmissions},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInterfaceData" parameterType="InterfaceData">
+        update interface_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="time != null">time = #{time},</if>
+            <if test="ifId != null">if_id = #{ifId},</if>
+            <if test="ifName != null">if_name = #{ifName},</if>
+            <if test="uptime != null">uptime = #{uptime},</if>
+            <if test="numFlows != null">num_flows = #{numFlows},</if>
+            <if test="numDevices != null">num_devices = #{numDevices},</if>
+            <if test="numLiveCaptures != null">num_live_captures = #{numLiveCaptures},</if>
+            <if test="numHosts != null">num_hosts = #{numHosts},</if>
+            <if test="droppedAlerts != null">dropped_alerts = #{droppedAlerts},</if>
+            <if test="epoch != null">epoch = #{epoch},</if>
+            <if test="alertedFlowsNotice != null">alerted_flows_notice = #{alertedFlowsNotice},</if>
+            <if test="alertedFlowsWarning != null">alerted_flows_warning = #{alertedFlowsWarning},</if>
+            <if test="speed != null">speed = #{speed},</if>
+            <if test="packets != null">packets = #{packets},</if>
+            <if test="bytesDownload != null">bytes_download = #{bytesDownload},</if>
+            <if test="bytesUpload != null">bytes_upload = #{bytesUpload},</if>
+            <if test="packetsDownload != null">packets_download = #{packetsDownload},</if>
+            <if test="packetsUpload != null">packets_upload = #{packetsUpload},</if>
+            <if test="local2remote != null">local2remote = #{local2remote},</if>
+            <if test="remote2local != null">remote2local = #{remote2local},</if>
+            <if test="throughputBps != null">throughput_bps = #{throughputBps},</if>
+            <if test="throughputPps != null">throughput_pps = #{throughputPps},</if>
+            <if test="drops != null">drops = #{drops},</if>
+            <if test="flowsPctg != null">flows_pctg = #{flowsPctg},</if>
+            <if test="hostsPctg != null">hosts_pctg = #{hostsPctg},</if>
+            <if test="periodicStatsUpdateFrequencySecs != null">periodic_stats_update_frequency_secs = #{periodicStatsUpdateFrequencySecs},</if>
+            <if test="bytes != null">bytes = #{bytes},</if>
+            <if test="remoteBps != null">remote_bps = #{remoteBps},</if>
+            <if test="alertedFlows != null">alerted_flows = #{alertedFlows},</if>
+            <if test="engagedAlerts != null">engaged_alerts = #{engagedAlerts},</if>
+            <if test="tcpPacketOutOfOrder != null">tcp_packet_out_of_order = #{tcpPacketOutOfOrder},</if>
+            <if test="tcpPacketLost != null">tcp_packet_lost = #{tcpPacketLost},</if>
+            <if test="tcpPacketRetransmissions != null">tcp_packet_retransmissions = #{tcpPacketRetransmissions},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteInterfaceDataById" parameterType="Long">
+        delete from interface_data where id = #{id}
+    </delete>
+
+    <delete id="deleteInterfaceDataByIds" parameterType="String">
+        delete from interface_data where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

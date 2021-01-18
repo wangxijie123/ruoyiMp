@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.SystemHostStatsMapper">
+    
+    <resultMap type="com.ruoyi.common.core.domain.SystemHostStats" id="SystemHostStatsResult">
+        <result property="id"    column="id"    />
+        <result property="time"    column="time"    />
+        <result property="ifId"    column="if_id"    />
+        <result property="ifName"    column="if_name"    />
+        <result property="uptime"    column="uptime"    />
+        <result property="alertsQueries"    column="alerts_queries"    />
+        <result property="memUsed"    column="mem_used"    />
+        <result property="memNtopngResident"    column="mem_ntopng_resident"    />
+        <result property="memCached"    column="mem_cached"    />
+        <result property="droppedAlerts"    column="dropped_alerts"    />
+        <result property="memBuffers"    column="mem_buffers"    />
+        <result property="memNtopngVirtual"    column="mem_ntopng_virtual"    />
+        <result property="memTotal"    column="mem_total"    />
+        <result property="memShmem"    column="mem_shmem"    />
+        <result property="memFree"    column="mem_free"    />
+        <result property="memSreclaimable"    column="mem_sreclaimable"    />
+        <result property="writtenAlerts"    column="written_alerts"    />
+        <result property="engagedAlerts"    column="engaged_alerts"    />
+        <result property="cpuLoad"    column="cpu_load"    />
+    </resultMap>
+
+    <sql id="selectSystemHostStatsVo">
+        select id, time, if_id, if_name, uptime, alerts_queries, mem_used, mem_ntopng_resident, mem_cached, dropped_alerts, mem_buffers, mem_ntopng_virtual, mem_total, mem_shmem, mem_free, mem_sreclaimable, written_alerts, engaged_alerts, cpu_load from system_host_stats
+    </sql>
+
+    <select id="selectSystemHostStatsList" parameterType="SystemHostStats" resultMap="SystemHostStatsResult">
+        <include refid="selectSystemHostStatsVo"/>
+        <where>  
+            <if test="time != null "> and time = #{time}</if>
+            <if test="ifId != null "> and if_id = #{ifId}</if>
+            <if test="ifName != null  and ifName != ''"> and if_name like concat('%', #{ifName}, '%')</if>
+            <if test="uptime != null  and uptime != ''"> and uptime = #{uptime}</if>
+            <if test="alertsQueries != null "> and alerts_queries = #{alertsQueries}</if>
+            <if test="memUsed != null "> and mem_used = #{memUsed}</if>
+            <if test="memNtopngResident != null "> and mem_ntopng_resident = #{memNtopngResident}</if>
+            <if test="memCached != null "> and mem_cached = #{memCached}</if>
+            <if test="droppedAlerts != null "> and dropped_alerts = #{droppedAlerts}</if>
+            <if test="memBuffers != null "> and mem_buffers = #{memBuffers}</if>
+            <if test="memNtopngVirtual != null "> and mem_ntopng_virtual = #{memNtopngVirtual}</if>
+            <if test="memTotal != null "> and mem_total = #{memTotal}</if>
+            <if test="memShmem != null "> and mem_shmem = #{memShmem}</if>
+            <if test="memFree != null "> and mem_free = #{memFree}</if>
+            <if test="memSreclaimable != null "> and mem_sreclaimable = #{memSreclaimable}</if>
+            <if test="writtenAlerts != null "> and written_alerts = #{writtenAlerts}</if>
+            <if test="engagedAlerts != null "> and engaged_alerts = #{engagedAlerts}</if>
+            <if test="cpuLoad != null "> and cpu_load = #{cpuLoad}</if>
+        </where>
+    </select>
+    
+    <select id="selectSystemHostStatsById" parameterType="Long" resultMap="SystemHostStatsResult">
+        <include refid="selectSystemHostStatsVo"/>
+        where id = #{id}
+    </select>
+    <select id="getInfo" resultMap="SystemHostStatsResult">
+        select *
+        from system_host_stats where time = #{time};
+    </select>
+
+    <insert id="insertSystemHostStats" parameterType="SystemHostStats" useGeneratedKeys="true" keyProperty="id">
+        insert into system_host_stats
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="time != null">time,</if>
+            <if test="ifId != null">if_id,</if>
+            <if test="ifName != null">if_name,</if>
+            <if test="uptime != null">uptime,</if>
+            <if test="alertsQueries != null">alerts_queries,</if>
+            <if test="memUsed != null">mem_used,</if>
+            <if test="memNtopngResident != null">mem_ntopng_resident,</if>
+            <if test="memCached != null">mem_cached,</if>
+            <if test="droppedAlerts != null">dropped_alerts,</if>
+            <if test="memBuffers != null">mem_buffers,</if>
+            <if test="memNtopngVirtual != null">mem_ntopng_virtual,</if>
+            <if test="memTotal != null">mem_total,</if>
+            <if test="memShmem != null">mem_shmem,</if>
+            <if test="memFree != null">mem_free,</if>
+            <if test="memSreclaimable != null">mem_sreclaimable,</if>
+            <if test="writtenAlerts != null">written_alerts,</if>
+            <if test="engagedAlerts != null">engaged_alerts,</if>
+            <if test="cpuLoad != null">cpu_load,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="time != null">#{time},</if>
+            <if test="ifId != null">#{ifId},</if>
+            <if test="ifName != null">#{ifName},</if>
+            <if test="uptime != null">#{uptime},</if>
+            <if test="alertsQueries != null">#{alertsQueries},</if>
+            <if test="memUsed != null">#{memUsed},</if>
+            <if test="memNtopngResident != null">#{memNtopngResident},</if>
+            <if test="memCached != null">#{memCached},</if>
+            <if test="droppedAlerts != null">#{droppedAlerts},</if>
+            <if test="memBuffers != null">#{memBuffers},</if>
+            <if test="memNtopngVirtual != null">#{memNtopngVirtual},</if>
+            <if test="memTotal != null">#{memTotal},</if>
+            <if test="memShmem != null">#{memShmem},</if>
+            <if test="memFree != null">#{memFree},</if>
+            <if test="memSreclaimable != null">#{memSreclaimable},</if>
+            <if test="writtenAlerts != null">#{writtenAlerts},</if>
+            <if test="engagedAlerts != null">#{engagedAlerts},</if>
+            <if test="cpuLoad != null">#{cpuLoad},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSystemHostStats" parameterType="SystemHostStats">
+        update system_host_stats
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="time != null">time = #{time},</if>
+            <if test="ifId != null">if_id = #{ifId},</if>
+            <if test="ifName != null">if_name = #{ifName},</if>
+            <if test="uptime != null">uptime = #{uptime},</if>
+            <if test="alertsQueries != null">alerts_queries = #{alertsQueries},</if>
+            <if test="memUsed != null">mem_used = #{memUsed},</if>
+            <if test="memNtopngResident != null">mem_ntopng_resident = #{memNtopngResident},</if>
+            <if test="memCached != null">mem_cached = #{memCached},</if>
+            <if test="droppedAlerts != null">dropped_alerts = #{droppedAlerts},</if>
+            <if test="memBuffers != null">mem_buffers = #{memBuffers},</if>
+            <if test="memNtopngVirtual != null">mem_ntopng_virtual = #{memNtopngVirtual},</if>
+            <if test="memTotal != null">mem_total = #{memTotal},</if>
+            <if test="memShmem != null">mem_shmem = #{memShmem},</if>
+            <if test="memFree != null">mem_free = #{memFree},</if>
+            <if test="memSreclaimable != null">mem_sreclaimable = #{memSreclaimable},</if>
+            <if test="writtenAlerts != null">written_alerts = #{writtenAlerts},</if>
+            <if test="engagedAlerts != null">engaged_alerts = #{engagedAlerts},</if>
+            <if test="cpuLoad != null">cpu_load = #{cpuLoad},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSystemHostStatsById" parameterType="Long">
+        delete from system_host_stats where id = #{id}
+    </delete>
+
+    <delete id="deleteSystemHostStatsByIds" parameterType="String">
+        delete from system_host_stats where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

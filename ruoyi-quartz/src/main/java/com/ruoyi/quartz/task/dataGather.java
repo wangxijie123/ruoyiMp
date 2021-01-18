@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.utils.NtopngUtil;
 import com.ruoyi.quartz.service.IHostApplicationService;
 import com.ruoyi.quartz.service.IHostHttpService;
+import com.ruoyi.quartz.service.IInterfaceDataService;
 import com.ruoyi.quartz.service.IInterfaceHostsService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -28,9 +29,13 @@ public class dataGather {
     @Resource
     private IInterfaceHostsService interfaceHostsService;
 
+    @Resource
+    private IInterfaceDataService interfaceDataService;
+
     @Scheduled(cron = "*/15 * * * * ?")
     public void run(){
         interfaceHostsService.insert();
+        interfaceDataService.insert();
         insertOther();
     }
 
