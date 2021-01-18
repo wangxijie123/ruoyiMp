@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.core.domain.InterfaceHosts;
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.quartz.mapper.InterfaceHostsMapper;
 import com.ruoyi.quartz.service.IInterfaceHostsService;
 import com.ruoyi.common.utils.NtopngUtil;
@@ -41,9 +42,7 @@ public class InterfaceHostsServiceImpl implements IInterfaceHostsService
 
         JSONObject rsp = jsonObject.getJSONObject("rsp");
         JSONArray data = rsp.getJSONArray("data");
-        long l = System.currentTimeMillis();
-        String s = l + "000000";
-        Long time = Long.parseLong(s);
+        Long time = DateUtils.getLongTime();
         if(data != null && data.size() > 0){
             for(int i=0; i< data.size(); i++){
                 JSONObject item = data.getJSONObject(i);

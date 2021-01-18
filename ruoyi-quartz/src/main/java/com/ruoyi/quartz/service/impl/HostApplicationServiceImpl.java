@@ -3,6 +3,7 @@ package com.ruoyi.quartz.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.core.domain.HostApplication;
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.NtopngUtil;
 import com.ruoyi.quartz.mapper.HostApplicationMapper;
 import com.ruoyi.quartz.mapper.InterfaceHostsMapper;
@@ -50,9 +51,7 @@ public class HostApplicationServiceImpl implements IHostApplicationService {
             Map<String, Object> fields = new HashMap<String, Object>();
             //对应application页面的数据
             if (rsp.containsKey("ndpi")) {
-                long l = System.currentTimeMillis();
-                String s = l + "0000";
-                Long time = Long.parseLong(s);
+                Long time = DateUtils.getLongTime();
                 JSONObject ndpi = rsp.getJSONObject("ndpi");
                 //按IP，存不同协议的流量
                 for (Map.Entry<String, Object> entry : ndpi.entrySet()) {

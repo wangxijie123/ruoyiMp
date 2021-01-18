@@ -155,7 +155,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
 
     public static Long getLongTime(){
         long l = System.currentTimeMillis();
-        String s = l +"0000";
+        String s = l +"000000";
         return Long.parseLong(s);
     }
 }

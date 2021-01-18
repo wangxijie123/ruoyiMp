@@ -2,6 +2,7 @@ package com.ruoyi.quartz.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.core.domain.HostHttp;
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.quartz.mapper.HostHttpMapper;
 import com.ruoyi.quartz.mapper.InterfaceHostsMapper;
 import com.ruoyi.quartz.service.IHostHttpService;
@@ -49,9 +50,7 @@ public class HostHttpServiceImpl implements IHostHttpService {
             JSONObject rsp = json.getJSONObject("rsp");
             //对应application页面的数据
             if (rsp.containsKey("http")) {
-                long l = System.currentTimeMillis();
-                String s = l + "0000";
-                Long time = Long.parseLong(s);
+                Long time = DateUtils.getLongTime();
                 JSONObject http = rsp.getJSONObject("http");
                 if (null != http) {
                     JSONObject receiver = http.getJSONObject("receiver");
