@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.HostInfoMapper">
+    
+    <resultMap type="HostInfo" id="HostInfoResult">
+        <result property="id"    column="id"    />
+        <result property="time"    column="time"    />
+        <result property="mac"    column="mac"    />
+        <result property="ifId"    column="if_id"    />
+        <result property="ip"    column="ip"    />
+        <result property="localNetworkName"    column="local_network_name"    />
+        <result property="name"    column="name"    />
+        <result property="tcpBytesSentAnomalyIndex"    column="tcp_bytes_sent_anomaly_index"    />
+        <result property="activeAlertedFlows"    column="active_alerted_flows"    />
+        <result property="seenFirst"    column="seen_first"    />
+        <result property="seenLast"    column="seen_last"    />
+        <result property="packetsSent"    column="packets_sent"    />
+        <result property="bytesSent"    column="bytes_sent"    />
+        <result property="packetsRcvd"    column="packets_rcvd"    />
+        <result property="bytesRcvd"    column="bytes_rcvd"    />
+        <result property="activeFlowsAsClient"    column="active_flows_as_client"    />
+        <result property="totalFlowsAsClient"    column="total_flows_as_client"    />
+        <result property="alertedFlowsAsClient"    column="alerted_flows_as_client"    />
+        <result property="unreachableFlowsAsClient"    column="unreachable_flows_as_client"    />
+        <result property="activeFlowsAsServer"    column="active_flows_as_server"    />
+        <result property="totalFlowsAsServer"    column="total_flows_as_server"    />
+        <result property="alertedFlowsAsServer"    column="alerted_flows_as_server"    />
+        <result property="unreachableFlowsAsServer"    column="unreachable_flows_as_server"    />
+        <result property="contactsAsClient"    column="contacts_as_client"    />
+        <result property="contactsAsServer"    column="contacts_as_server"    />
+        <result property="tcppacketstatsSentOutOfOrder"    column="tcpPacketStats_sent_out_of_order"    />
+        <result property="tcppacketstatsSentLost"    column="tcpPacketStats_sent_lost"    />
+        <result property="tcppacketstatsSentRetransmissions"    column="tcpPacketStats_sent_retransmissions"    />
+        <result property="tcppacketstatsSentKeepAlive"    column="tcpPacketStats_sent_keep_alive"    />
+        <result property="tcppacketstatsRcvdOutOfOrder"    column="tcpPacketStats_rcvd_out_of_order"    />
+        <result property="tcppacketstatsRcvdLost"    column="tcpPacketStats_rcvd_lost"    />
+        <result property="tcppacketstatsRcvdRetransmissions"    column="tcpPacketStats_rcvd_retransmissions"    />
+        <result property="tcppacketstatsRcvdKeepAlive"    column="tcpPacketStats_rcvd_keep_alive"    />
+    </resultMap>
+
+    <sql id="selectHostInfoVo">
+        select id, time, mac, if_id, ip, local_network_name, name, tcp_bytes_sent_anomaly_index, active_alerted_flows, seen_first, seen_last, packets_sent, bytes_sent, packets_rcvd, bytes_rcvd, active_flows_as_client, total_flows_as_client, alerted_flows_as_client, unreachable_flows_as_client, active_flows_as_server, total_flows_as_server, alerted_flows_as_server, unreachable_flows_as_server, contacts_as_client, contacts_as_server, tcpPacketStats_sent_out_of_order, tcpPacketStats_sent_lost, tcpPacketStats_sent_retransmissions, tcpPacketStats_sent_keep_alive, tcpPacketStats_rcvd_out_of_order, tcpPacketStats_rcvd_lost, tcpPacketStats_rcvd_retransmissions, tcpPacketStats_rcvd_keep_alive from host_info
+    </sql>
+
+    <select id="selectHostInfoList" parameterType="HostInfo" resultMap="HostInfoResult">
+        <include refid="selectHostInfoVo"/>
+        <where>  
+            <if test="time != null "> and time = #{time}</if>
+            <if test="mac != null  and mac != ''"> and mac = #{mac}</if>
+            <if test="ifId != null "> and if_id = #{ifId}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="localNetworkName != null "> and local_network_name like concat('%', #{localNetworkName}, '%')</if>
+            <if test="name != null "> and name like concat('%', #{name}, '%')</if>
+            <if test="tcpBytesSentAnomalyIndex != null "> and tcp_bytes_sent_anomaly_index = #{tcpBytesSentAnomalyIndex}</if>
+            <if test="activeAlertedFlows != null "> and active_alerted_flows = #{activeAlertedFlows}</if>
+            <if test="seenFirst != null "> and seen_first = #{seenFirst}</if>
+            <if test="seenLast != null "> and seen_last = #{seenLast}</if>
+            <if test="packetsSent != null "> and packets_sent = #{packetsSent}</if>
+            <if test="bytesSent != null "> and bytes_sent = #{bytesSent}</if>
+            <if test="packetsRcvd != null "> and packets_rcvd = #{packetsRcvd}</if>
+            <if test="bytesRcvd != null "> and bytes_rcvd = #{bytesRcvd}</if>
+            <if test="activeFlowsAsClient != null "> and active_flows_as_client = #{activeFlowsAsClient}</if>
+            <if test="totalFlowsAsClient != null "> and total_flows_as_client = #{totalFlowsAsClient}</if>
+            <if test="alertedFlowsAsClient != null "> and alerted_flows_as_client = #{alertedFlowsAsClient}</if>
+            <if test="unreachableFlowsAsClient != null "> and unreachable_flows_as_client = #{unreachableFlowsAsClient}</if>
+            <if test="activeFlowsAsServer != null "> and active_flows_as_server = #{activeFlowsAsServer}</if>
+            <if test="totalFlowsAsServer != null "> and total_flows_as_server = #{totalFlowsAsServer}</if>
+            <if test="alertedFlowsAsServer != null "> and alerted_flows_as_server = #{alertedFlowsAsServer}</if>
+            <if test="unreachableFlowsAsServer != null "> and unreachable_flows_as_server = #{unreachableFlowsAsServer}</if>
+            <if test="contactsAsClient != null "> and contacts_as_client = #{contactsAsClient}</if>
+            <if test="contactsAsServer != null "> and contacts_as_server = #{contactsAsServer}</if>
+            <if test="tcppacketstatsSentOutOfOrder != null "> and tcpPacketStats_sent_out_of_order = #{tcppacketstatsSentOutOfOrder}</if>
+            <if test="tcppacketstatsSentLost != null "> and tcpPacketStats_sent_lost = #{tcppacketstatsSentLost}</if>
+            <if test="tcppacketstatsSentRetransmissions != null "> and tcpPacketStats_sent_retransmissions = #{tcppacketstatsSentRetransmissions}</if>
+            <if test="tcppacketstatsSentKeepAlive != null "> and tcpPacketStats_sent_keep_alive = #{tcppacketstatsSentKeepAlive}</if>
+            <if test="tcppacketstatsRcvdOutOfOrder != null "> and tcpPacketStats_rcvd_out_of_order = #{tcppacketstatsRcvdOutOfOrder}</if>
+            <if test="tcppacketstatsRcvdLost != null "> and tcpPacketStats_rcvd_lost = #{tcppacketstatsRcvdLost}</if>
+            <if test="tcppacketstatsRcvdRetransmissions != null "> and tcpPacketStats_rcvd_retransmissions = #{tcppacketstatsRcvdRetransmissions}</if>
+            <if test="tcppacketstatsRcvdKeepAlive != null "> and tcpPacketStats_rcvd_keep_alive = #{tcppacketstatsRcvdKeepAlive}</if>
+        </where>
+    </select>
+    
+    <select id="selectHostInfoById" parameterType="Long" resultMap="HostInfoResult">
+        <include refid="selectHostInfoVo"/>
+        where id = #{id}
+    </select>
+    <select id="getInfoByIp" resultMap="HostInfoResult">
+        select *
+        from host_info where ip = #{ip} order by time desc limit 1;
+    </select>
+
+    <insert id="insertHostInfo" parameterType="HostInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into host_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="time != null">time,</if>
+            <if test="mac != null">mac,</if>
+            <if test="ifId != null">if_id,</if>
+            <if test="ip != null">ip,</if>
+            <if test="localNetworkName != null">local_network_name,</if>
+            <if test="name != null">name,</if>
+            <if test="tcpBytesSentAnomalyIndex != null">tcp_bytes_sent_anomaly_index,</if>
+            <if test="activeAlertedFlows != null">active_alerted_flows,</if>
+            <if test="seenFirst != null">seen_first,</if>
+            <if test="seenLast != null">seen_last,</if>
+            <if test="packetsSent != null">packets_sent,</if>
+            <if test="bytesSent != null">bytes_sent,</if>
+            <if test="packetsRcvd != null">packets_rcvd,</if>
+            <if test="bytesRcvd != null">bytes_rcvd,</if>
+            <if test="activeFlowsAsClient != null">active_flows_as_client,</if>
+            <if test="totalFlowsAsClient != null">total_flows_as_client,</if>
+            <if test="alertedFlowsAsClient != null">alerted_flows_as_client,</if>
+            <if test="unreachableFlowsAsClient != null">unreachable_flows_as_client,</if>
+            <if test="activeFlowsAsServer != null">active_flows_as_server,</if>
+            <if test="totalFlowsAsServer != null">total_flows_as_server,</if>
+            <if test="alertedFlowsAsServer != null">alerted_flows_as_server,</if>
+            <if test="unreachableFlowsAsServer != null">unreachable_flows_as_server,</if>
+            <if test="contactsAsClient != null">contacts_as_client,</if>
+            <if test="contactsAsServer != null">contacts_as_server,</if>
+            <if test="tcppacketstatsSentOutOfOrder != null">tcpPacketStats_sent_out_of_order,</if>
+            <if test="tcppacketstatsSentLost != null">tcpPacketStats_sent_lost,</if>
+            <if test="tcppacketstatsSentRetransmissions != null">tcpPacketStats_sent_retransmissions,</if>
+            <if test="tcppacketstatsSentKeepAlive != null">tcpPacketStats_sent_keep_alive,</if>
+            <if test="tcppacketstatsRcvdOutOfOrder != null">tcpPacketStats_rcvd_out_of_order,</if>
+            <if test="tcppacketstatsRcvdLost != null">tcpPacketStats_rcvd_lost,</if>
+            <if test="tcppacketstatsRcvdRetransmissions != null">tcpPacketStats_rcvd_retransmissions,</if>
+            <if test="tcppacketstatsRcvdKeepAlive != null">tcpPacketStats_rcvd_keep_alive,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="time != null">#{time},</if>
+            <if test="mac != null">#{mac},</if>
+            <if test="ifId != null">#{ifId},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="localNetworkName != null">#{localNetworkName},</if>
+            <if test="name != null">#{name},</if>
+            <if test="tcpBytesSentAnomalyIndex != null">#{tcpBytesSentAnomalyIndex},</if>
+            <if test="activeAlertedFlows != null">#{activeAlertedFlows},</if>
+            <if test="seenFirst != null">#{seenFirst},</if>
+            <if test="seenLast != null">#{seenLast},</if>
+            <if test="packetsSent != null">#{packetsSent},</if>
+            <if test="bytesSent != null">#{bytesSent},</if>
+            <if test="packetsRcvd != null">#{packetsRcvd},</if>
+            <if test="bytesRcvd != null">#{bytesRcvd},</if>
+            <if test="activeFlowsAsClient != null">#{activeFlowsAsClient},</if>
+            <if test="totalFlowsAsClient != null">#{totalFlowsAsClient},</if>
+            <if test="alertedFlowsAsClient != null">#{alertedFlowsAsClient},</if>
+            <if test="unreachableFlowsAsClient != null">#{unreachableFlowsAsClient},</if>
+            <if test="activeFlowsAsServer != null">#{activeFlowsAsServer},</if>
+            <if test="totalFlowsAsServer != null">#{totalFlowsAsServer},</if>
+            <if test="alertedFlowsAsServer != null">#{alertedFlowsAsServer},</if>
+            <if test="unreachableFlowsAsServer != null">#{unreachableFlowsAsServer},</if>
+            <if test="contactsAsClient != null">#{contactsAsClient},</if>
+            <if test="contactsAsServer != null">#{contactsAsServer},</if>
+            <if test="tcppacketstatsSentOutOfOrder != null">#{tcppacketstatsSentOutOfOrder},</if>
+            <if test="tcppacketstatsSentLost != null">#{tcppacketstatsSentLost},</if>
+            <if test="tcppacketstatsSentRetransmissions != null">#{tcppacketstatsSentRetransmissions},</if>
+            <if test="tcppacketstatsSentKeepAlive != null">#{tcppacketstatsSentKeepAlive},</if>
+            <if test="tcppacketstatsRcvdOutOfOrder != null">#{tcppacketstatsRcvdOutOfOrder},</if>
+            <if test="tcppacketstatsRcvdLost != null">#{tcppacketstatsRcvdLost},</if>
+            <if test="tcppacketstatsRcvdRetransmissions != null">#{tcppacketstatsRcvdRetransmissions},</if>
+            <if test="tcppacketstatsRcvdKeepAlive != null">#{tcppacketstatsRcvdKeepAlive},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHostInfo" parameterType="HostInfo">
+        update host_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="time != null">time = #{time},</if>
+            <if test="mac != null">mac = #{mac},</if>
+            <if test="ifId != null">if_id = #{ifId},</if>
+            <if test="ip != null">ip = #{ip},</if>
+            <if test="localNetworkName != null">local_network_name = #{localNetworkName},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="tcpBytesSentAnomalyIndex != null">tcp_bytes_sent_anomaly_index = #{tcpBytesSentAnomalyIndex},</if>
+            <if test="activeAlertedFlows != null">active_alerted_flows = #{activeAlertedFlows},</if>
+            <if test="seenFirst != null">seen_first = #{seenFirst},</if>
+            <if test="seenLast != null">seen_last = #{seenLast},</if>
+            <if test="packetsSent != null">packets_sent = #{packetsSent},</if>
+            <if test="bytesSent != null">bytes_sent = #{bytesSent},</if>
+            <if test="packetsRcvd != null">packets_rcvd = #{packetsRcvd},</if>
+            <if test="bytesRcvd != null">bytes_rcvd = #{bytesRcvd},</if>
+            <if test="activeFlowsAsClient != null">active_flows_as_client = #{activeFlowsAsClient},</if>
+            <if test="totalFlowsAsClient != null">total_flows_as_client = #{totalFlowsAsClient},</if>
+            <if test="alertedFlowsAsClient != null">alerted_flows_as_client = #{alertedFlowsAsClient},</if>
+            <if test="unreachableFlowsAsClient != null">unreachable_flows_as_client = #{unreachableFlowsAsClient},</if>
+            <if test="activeFlowsAsServer != null">active_flows_as_server = #{activeFlowsAsServer},</if>
+            <if test="totalFlowsAsServer != null">total_flows_as_server = #{totalFlowsAsServer},</if>
+            <if test="alertedFlowsAsServer != null">alerted_flows_as_server = #{alertedFlowsAsServer},</if>
+            <if test="unreachableFlowsAsServer != null">unreachable_flows_as_server = #{unreachableFlowsAsServer},</if>
+            <if test="contactsAsClient != null">contacts_as_client = #{contactsAsClient},</if>
+            <if test="contactsAsServer != null">contacts_as_server = #{contactsAsServer},</if>
+            <if test="tcppacketstatsSentOutOfOrder != null">tcpPacketStats_sent_out_of_order = #{tcppacketstatsSentOutOfOrder},</if>
+            <if test="tcppacketstatsSentLost != null">tcpPacketStats_sent_lost = #{tcppacketstatsSentLost},</if>
+            <if test="tcppacketstatsSentRetransmissions != null">tcpPacketStats_sent_retransmissions = #{tcppacketstatsSentRetransmissions},</if>
+            <if test="tcppacketstatsSentKeepAlive != null">tcpPacketStats_sent_keep_alive = #{tcppacketstatsSentKeepAlive},</if>
+            <if test="tcppacketstatsRcvdOutOfOrder != null">tcpPacketStats_rcvd_out_of_order = #{tcppacketstatsRcvdOutOfOrder},</if>
+            <if test="tcppacketstatsRcvdLost != null">tcpPacketStats_rcvd_lost = #{tcppacketstatsRcvdLost},</if>
+            <if test="tcppacketstatsRcvdRetransmissions != null">tcpPacketStats_rcvd_retransmissions = #{tcppacketstatsRcvdRetransmissions},</if>
+            <if test="tcppacketstatsRcvdKeepAlive != null">tcpPacketStats_rcvd_keep_alive = #{tcppacketstatsRcvdKeepAlive},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHostInfoById" parameterType="Long">
+        delete from host_info where id = #{id}
+    </delete>
+
+    <delete id="deleteHostInfoByIds" parameterType="String">
+        delete from host_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

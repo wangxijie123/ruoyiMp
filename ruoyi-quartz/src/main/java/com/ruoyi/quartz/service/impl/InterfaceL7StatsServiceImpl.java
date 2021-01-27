@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.core.domain.InterfaceL7Stats;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.NtopngUtil;
 import com.ruoyi.quartz.mapper.InterfaceL7StatsMapper;
 import com.ruoyi.quartz.service.IInterfaceL7StatsService;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,11 @@ public class InterfaceL7StatsServiceImpl implements IInterfaceL7StatsService {
     @Override
     public void insert() {
         //线上数据
-//        JSONObject json = NtopngUtil.ntopng_interface_stats_l7("0", "count");
+        JSONObject json = NtopngUtil.ntopng_interface_stats_l7("0", "count");
 
         //测试数据
-        String res  = "{\"rc\":0,\"rc_str_hr\":\"Success\",\"rc_str\":\"OK\",\"rsp\":[{\"label\":\"HTTP\",\"value\":26,\"url\":\"/lua/flows_stats.lua?application=HTTP\"},{\"label\":\"ICMP\",\"value\":2,\"url\":\"/lua/flows_stats.lua?application=ICMP\"},{\"label\":\"Unknown\",\"value\":1,\"url\":\"/lua/flows_stats.lua?application=Unknown\"},{\"label\":\"SSH\",\"value\":1,\"url\":\"/lua/flows_stats.lua?application=SSH\"},{\"label\":\"Syslog\",\"value\":1,\"url\":\"/lua/flows_stats.lua?application=Syslog\"}]}";
-        JSONObject json = JSONObject.parseObject(res);
+//        String res  = "{\"rc\":0,\"rc_str_hr\":\"Success\",\"rc_str\":\"OK\",\"rsp\":[{\"label\":\"HTTP\",\"value\":26,\"url\":\"/lua/flows_stats.lua?application=HTTP\"},{\"label\":\"ICMP\",\"value\":2,\"url\":\"/lua/flows_stats.lua?application=ICMP\"},{\"label\":\"Unknown\",\"value\":1,\"url\":\"/lua/flows_stats.lua?application=Unknown\"},{\"label\":\"SSH\",\"value\":1,\"url\":\"/lua/flows_stats.lua?application=SSH\"},{\"label\":\"Syslog\",\"value\":1,\"url\":\"/lua/flows_stats.lua?application=Syslog\"}]}";
+//        JSONObject json = JSONObject.parseObject(res);
 
         /*===================================================*/
         JSONArray rsp = json.getJSONArray("rsp");

@@ -575,6 +575,10 @@ ifid	query	Interface identifier	integer
 
     public static void main(String[] args) {
         JSONObject json = null;
+
+//        System.out.println("ntopng_host_data");
+//        json = ntopng_host_data("0", "60.190.233.178");
+//        System.out.println(json);
 //
 //        System.out.println("ntopng_interface_data");
 //        json = ntopng_interface_data("0");
@@ -615,9 +619,7 @@ ifid	query	Interface identifier	integer
 //        System.out.println("ntopng_host_interfaces");
 //        json = ntopng_host_interfaces("0");
 //        System.out.println(json);
-        System.out.println("ntopng_host_data");
-        json = ntopng_host_data("0", "10.76.135.45");
-        System.out.println(json);
+
 //        System.out.println("ntopng_host_custom_data");
 //        json = ntopng_host_custom_data("0", "10.76.135.45", "");
 //        System.out.println(json);
