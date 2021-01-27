@@ -195,20 +195,20 @@
             </dependency>
 
 
-            <!--mybatis plus-->
-            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatisplus-spring-boot-starter -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatisplus-spring-boot-starter</artifactId>
-                <version>1.0.5</version>
-            </dependency>
+<!--            &lt;!&ndash;mybatis plus&ndash;&gt;-->
+<!--            &lt;!&ndash; https://mvnrepository.com/artifact/com.baomidou/mybatisplus-spring-boot-starter &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatisplus-spring-boot-starter</artifactId>-->
+<!--                <version>1.0.5</version>-->
+<!--            </dependency>-->
 
-            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
-                <version>3.3.2</version>
-            </dependency>
+<!--            &lt;!&ndash; https://mvnrepository.com/artifact/com.baomidou/mybatis-plus &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus</artifactId>-->
+<!--                <version>3.3.2</version>-->
+<!--            </dependency>-->
 
 
 
