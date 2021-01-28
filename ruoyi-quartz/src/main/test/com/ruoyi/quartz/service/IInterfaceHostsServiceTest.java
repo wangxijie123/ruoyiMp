@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+import java.time.Instant;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -17,17 +19,18 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  * @date 2021/1/14 17:00
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = IInterfaceHostsService.class)
-@Transactional
-@Commit
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = IInterfaceHostsService.class)
+//@Transactional
+//@Commit
 public class IInterfaceHostsServiceTest {
-
-    @Resource
-    private IInterfaceHostsService service;
+//
+//    @Resource
+//    private IInterfaceHostsService service;
 
     @Test
     public void insert() {
-        service.insert();
+        long epochSecond = Instant.now().getEpochSecond();
+        System.out.println(epochSecond);
     }
 }

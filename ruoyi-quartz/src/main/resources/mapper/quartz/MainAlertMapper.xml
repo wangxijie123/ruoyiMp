@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.quartz.mapper.MainAlertMapper">
+
+    <resultMap type="com.ruoyi.common.core.domain.MainAlert" id="AlertResult">
+        <result property="id" column="id"/>
+        <result property="date" column="date"/>
+        <result property="severity" column="severity"/>
+        <result property="duration" column="duration"/>
+        <result property="msg" column="msg"/>
+        <result property="entityVal" column="entity_val"/>
+        <result property="count" column="count"/>
+        <result property="type" column="type"/>
+        <result property="entity" column="entity"/>
+    </resultMap>
+
+    <sql id="selectAlertVo">
+        select id,
+               date,
+               severity,
+               duration,
+               msg,
+               entity_val,
+               count,
+               type,
+               entity
+        from main_alert
+    </sql>
+
+    <select id="selectAlertList" parameterType="com.ruoyi.common.core.domain.MainAlert" resultMap="AlertResult">
+        <include refid="selectAlertVo"/>
+        <where>
+            <if test="date != null ">and date = #{date}</if>
+            <if test="severity != null  and severity != ''">and severity = #{severity}</if>
+            <if test="duration != null ">and duration = #{duration}</if>
+            <if test="msg != null  and msg != ''">and msg = #{msg}</if>
+            <if test="entityVal != null  and entityVal != ''">and entity_val = #{entityVal}</if>
+            <if test="count != null ">and count = #{count}</if>
+            <if test="type != null  and type != ''">and type = #{type}</if>
+            <if test="entity != null  and entity != ''">and entity = #{entity}</if>
+        </where>
+    </select>
+
+    <select id="selectAlertById" parameterType="Long" resultMap="AlertResult">
+        <include refid="selectAlertVo"/>
+        where id = #{id}
+    </select>
+    <select id="getMaxTime" resultType="java.lang.Long">
+        SELECT date FROM main_alert ORDER BY id desc LIMIT 1
+    </select>
+
+    <insert id="insertAlert" parameterType="com.ruoyi.common.core.domain.MainAlert" keyProperty="id"
+            useGeneratedKeys="true">
+        insert into main_alert
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="date != null">date,</if>
+            <if test="severity != null">severity,</if>
+            <if test="duration != null">duration,</if>
+            <if test="msg != null">msg,</if>
+            <if test="entityVal != null">entity_val,</if>
+            <if test="count != null">count,</if>
+            <if test="type != null">type,</if>
+            <if test="entity != null">entity,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="date != null">#{date},</if>
+            <if test="severity != null">#{severity},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="msg != null">#{msg},</if>
+            <if test="entityVal != null">#{entityVal},</if>
+            <if test="count != null">#{count},</if>
+            <if test="type != null">#{type},</if>
+            <if test="entity != null">#{entity},</if>
+        </trim>
+    </insert>
+    <insert id="batchInsert">
+        insert into main_alert ( date, severity, duration, msg, entity_val, count, type, entity)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.date},#{item.severity}, #{item.duration}, #{item.msg}, #{item.entityVal}, #{item.count}, #{item.type}, #{item.entity})
+        </foreach>
+    </insert>
+
+    <update id="updateAlert" parameterType="com.ruoyi.common.core.domain.MainAlert">
+        update main_alert
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="date != null">date = #{date},</if>
+            <if test="severity != null">severity = #{severity},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="msg != null">msg = #{msg},</if>
+            <if test="entityVal != null">entity_val = #{entityVal},</if>
+            <if test="count != null">count = #{count},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="entity != null">entity = #{entity},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAlertById" parameterType="Long">
+        delete
+        from main_alert
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteAlertByIds" parameterType="String">
+        delete from main_alert where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

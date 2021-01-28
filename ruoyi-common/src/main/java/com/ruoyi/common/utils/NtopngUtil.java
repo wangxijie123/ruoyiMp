@@ -7,6 +7,7 @@ import com.ruoyi.common.utils.sign.Base64;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -585,16 +586,21 @@ ifid	query	Interface identifier	integer
 //        System.out.println(json);
 
 //        System.out.println("ntopng_alert_data");
-//        json = ntopng_alert_data("0", "historical", "", "", "", "");
+//        json = ntopng_alert_data("0", "historical-flows", "1611795129", "1611795149", "", "");
 //        System.out.println(json);
+
+        System.out.println("ntopng_alert_data");
+        long epochSecond = Instant.now().getEpochSecond();
+        json = ntopng_alert_data("0", "historical", "1611801306", String.valueOf(epochSecond), "", "");
+        System.out.println(json);
 
 //        System.out.println("ntopng_interface_hosts");
 //        json = ntopng_interface_hosts("0", "", "", "","", "", "");
 //        System.out.println(json);
 
-        System.out.println("ntopng_host_data");
-        json = ntopng_host_data("0", "10.76.135.45");
-        System.out.println(json);
+//        System.out.println("ntopng_host_data");
+//        json = ntopng_host_data("0", "10.76.135.45");
+//        System.out.println(json);
 
 //        System.out.println("ntopng_interface_stats_l7");
 //        json = ntopng_interface_stats_l7("0", "count");

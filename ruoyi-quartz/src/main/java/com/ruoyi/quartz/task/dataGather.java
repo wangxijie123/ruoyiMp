@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -29,8 +30,8 @@ public class dataGather {
     @Resource
     private IInterfaceDataService interfaceDataService;
 
-//    @Resource
-//    private IInterfaceL7StatsService interfaceL7StatsService;
+    @Resource
+    private MainIAlertService mainIAlertService;
 
     @Resource
     private IHostInfoService hostInfoService;
@@ -41,6 +42,7 @@ public class dataGather {
         interfaceDataService.insert();
 //        interfaceL7StatsService.insert();
         insertOther();
+        insertAlert();
     }
 
     private void insertOther(){
@@ -58,6 +60,19 @@ public class dataGather {
             hostHttpService.insert(json,ip);
             hostApplicationService.insert(json,ip);
             hostInfoService.insert(json,ip);
+        }
+    }
+
+    private void insertAlert(){
+        Long maxTime = mainIAlertService.getMaxTime();
+        JSONObject json;
+        if (maxTime==null){
+            json = NtopngUtil.ntopng_alert_data("0", "historical", "", "", "", "");
+            mainIAlertService.insert(json,maxTime,null);
+        }else {
+            long now = Instant.now().getEpochSecond();
+            json = NtopngUtil.ntopng_alert_data("0", "historical", String.valueOf(maxTime), String.valueOf(now), "", "");
+            mainIAlertService.insert(json,maxTime,now);
         }
     }
 }
