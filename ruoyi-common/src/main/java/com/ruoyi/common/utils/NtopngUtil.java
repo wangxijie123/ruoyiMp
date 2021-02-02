@@ -1,13 +1,13 @@
 package com.ruoyi.common.utils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+import com.ruoyi.common.core.domain.Flow;
 import com.ruoyi.common.core.domain.HttpResult;
 import com.ruoyi.common.utils.sign.Base64;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +22,6 @@ public class NtopngUtil {
     private final static String user = "admin";
     private final static String pass = "Admin@junction";
     private static String auth = "";
-
-    /*==================================Interfaces==========================*/
     //get interface data
     private final static String url_interface_data = "/lua/rest/v1/get/interface/data.lua";
     //get interface IP addresses
@@ -34,8 +32,6 @@ public class NtopngUtil {
     private final static String url_interface_stat_dscp = "/lua/rest/v1/get/interface/dscp/stats.lua";
     //get ntopng actively monitored interfaces names and ids
     private final static String url_interface_interfaces = "/lua/rest/v1/get/ntopng/interfaces.lua";
-
-    /*==================================Hosts==================================*/
     //get active hosts
     private final static String url_host_hosts = "/lua/rest/v1/get/host/active.lua";
     //get host interfaces
@@ -48,8 +44,6 @@ public class NtopngUtil {
     private final static String url_host_stats_l7 = "/lua/rest/v1/get/host/l7/stats.lua";
     //get DSCP statistics for a host
     private final static String url_host_stats_dscp = "/lua/rest/v1/get/host/dscp/stats.lua";
-
-    /*=====================================Alerts==================================*/
     //get alerts data
     private final static String url_alert_data = "/lua/rest/v1/get/alert/data.lua";
     //get alerts timeseries
@@ -62,8 +56,7 @@ public class NtopngUtil {
     private final static String url_alert_per_type="/lua/rest/v1/get/alert/type/counters.lua";
     //get counters per serverity
     private final static String url_alert_serverity_counters="/lua/rest/v1/get/alert/severity/counters.lua";
-
-    /*====================================Flows=============================*/
+    //flows
     //Get active flows
     /*
     * Name	Position	Description	Type
@@ -117,8 +110,6 @@ ifid	query	Interface identifier	integer
      * bpf_filter	query	BPF filter	string
      */
     private final static String url_flow_pcap_live_extraction = "/lua/rest/v1/get/pcap/live_extraction.lua";
-
-    /*=======================================Protocols==================================*/
     //Get L4 protocol constants
     private final static String url_flow_proto_l4 = "/lua/rest/v1/get/l4/protocol/consts.lua";
     //Get L7 application protocol constants
@@ -127,8 +118,6 @@ ifid	query	Interface identifier	integer
     private final static String url_flow_category_consts = "/lua/rest/v1/get/l7/category/consts.lua";
     //Get one or all interface pools
     private final static String url_flow_interface_pools = "/lua/rest/v1/get/interface/pools.lua";
-
-    /*========================================Pools======================================*/
     //Get one or all host pools
     private final static String url_flow_host_pools = "/lua/rest/v1/get/host/pools.lua";
     //Get one or all local network pools
@@ -149,6 +138,9 @@ ifid	query	Interface identifier	integer
     private final static String url_flow_host_pool_members = "/lua/rest/v1/get/host/pool/members.lua";
     //Get an host pool given a member
     private final static String url_flow_pool_by_member = "/lua/rest/v1/get/host/pool_by_member.lua";
+
+    //高级接口
+    private final static String url_pro_db_flows = "/lua/pro/rest/v1/get/db/topk_flows.lua";
 
     /**
      *
@@ -574,58 +566,109 @@ ifid	query	Interface identifier	integer
         return ntopng_getData(url);
     }
 
+    public static JSONObject ntopng_web_spider(String url, String cookie){
+        JSONObject json = null;
+        try {
+            Map<String, String> header =new HashMap<>();
+            header.put("cookie", cookie);
+            HttpResult result = HttpUtil.doGet(HttpUtil.getHttpClient(), url, header);
+            json = JSONObject.parseObject(result.getData());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public static String getHtmlText(String html){
+
+        StringBuffer stringBuffer = new StringBuffer(html);
+        int ps1, ps2;
+        while(true) {
+            ps1 = stringBuffer.indexOf("<");
+            ps2 = stringBuffer.indexOf(">");
+            if(ps1 >=0 && ps2 >=0 && ps2>ps1){
+                stringBuffer = stringBuffer.delete(ps1, ps2 + 1);
+            }else{
+                break;
+            }
+        }
+
+        String value = stringBuffer.toString();
+        value = value.replaceAll("&nbsp;", "");
+        value = value.replaceAll(" ", "");
+        return value;
+    }
+
+
     public static void main(String[] args) {
         JSONObject json = null;
+        String cookie = "tzoffset=28800; _gaDiagram=GA1.1.1648044454.1608621682; session=9c1994a1cb89df61fe5acff47d8df853";
+        int j = 0;
+        for(int i=1; i<= 10; i++){
+            String url = StringUtils.format("http://112.13.167.87:9002/lua/get_hosts_data.lua?currentPage={}&perPage=10&sortColumn=column_num_flows&sortOrder=desc", i);
+            url = StringUtils.format("http://112.13.167.87:9002/lua/get_flows_data.lua?currentPage={}&perPage=10&sortColumn=column_client&sortOrder=asc", i);
 
-//        System.out.println("ntopng_host_data");
-//        json = ntopng_host_data("0", "60.190.233.178");
-//        System.out.println(json);
-//
-//        System.out.println("ntopng_interface_data");
-//        json = ntopng_interface_data("0");
-//        System.out.println(json);
+            System.out.println(url);
+            json = ntopng_web_spider(url, cookie);
+            if(json == null) {
+                break;
+            }else{
+                Map map = new HashMap();
+                JSONArray data = json.getJSONArray("data");
+                if(data.size() == 0) break;
+                for(int r=0; r<data.size(); r++){
+                    j ++;
+                    JSONObject item = data.getJSONObject(r);
+                    System.out.println(item.getString("column_key"));
+                    for (Map.Entry<String, Object> entry: item.entrySet()) {
+                        Object o = entry.getValue();
+                        if(o instanceof String) {
+                            String v = (String)entry.getValue();
+                            System.out.println("key:" + entry.getKey() + "，value:" + getHtmlText(v));
+//                            map.put(entry.getKey(),NtopngUtil.getHtmlText(v));
+                        }
+                    }
+                    System.out.println("=====");
 
-//        System.out.println("ntopng_alert_data");
-//        json = ntopng_alert_data("0", "historical-flows", "1611795129", "1611795149", "", "");
-//        System.out.println(json);
-
-        System.out.println("ntopng_alert_data");
-        long epochSecond = Instant.now().getEpochSecond();
-        json = ntopng_alert_data("0", "historical", "1611801306", String.valueOf(epochSecond), "", "");
-        System.out.println(json);
-
+                }
+//                Flow parse = JSONObject.parseObject(JSONObject.toJSONString(map), Flow.class);
+//                System.out.println(parse);
+            }
+//            System.out.println(json);
+            System.out.println("-------");
+            System.out.println(j);
+        }
 //        System.out.println("ntopng_interface_hosts");
 //        json = ntopng_interface_hosts("0", "", "", "","", "", "");
 //        System.out.println(json);
 
-//        System.out.println("ntopng_host_data");
-//        json = ntopng_host_data("0", "10.76.135.45");
-//        System.out.println(json);
 
-//        System.out.println("ntopng_interface_stats_l7");
-//        json = ntopng_interface_stats_l7("0", "count");
-//        System.out.println(json);
-
-
-        /*
-
+        /*System.out.println("ntopng_interface_data");
+        json = ntopng_interface_data("0");
+        System.out.println(json);
         json = json.getJSONObject("rsp");
 //        System.out.println(json.getTimestamp("localtime"));
         System.out.println("ntopng_interface_address");
         json = ntopng_interface_address("0");
         System.out.println(json);
-
+        System.out.println("ntopng_interface_stats_l7");
+        json = ntopng_interface_stats_l7("0", "count");
+        System.out.println(json);
         System.out.println("ntopng_stats_dscp");
         json = ntopng_stats_dscp("0");
         System.out.println(json);
         System.out.println("ntopng_interface_interfaces");
         json = ntopng_interface_interfaces();
         System.out.println(json);
-
+        System.out.println("ntopng_interface_hosts");
+        json = ntopng_interface_hosts("0", "", "", "","", "", "");
+        System.out.println(json);
 //        System.out.println("ntopng_host_interfaces");
 //        json = ntopng_host_interfaces("0");
 //        System.out.println(json);
-
+        System.out.println("ntopng_host_data");
+        json = ntopng_host_data("0", "10.76.135.45");
+        System.out.println(json);
 //        System.out.println("ntopng_host_custom_data");
 //        json = ntopng_host_custom_data("0", "10.76.135.45", "");
 //        System.out.println(json);
@@ -636,7 +679,9 @@ ifid	query	Interface identifier	integer
         System.out.println("ntopng_host_static_dscp");
         json = ntopng_host_static_dscp("0", "10.76.135.45", "0", "sent");
         System.out.println(json);
-
+        System.out.println("ntopng_alert_data");
+        json = ntopng_alert_data("0", "historical", "", "", "", "");
+        System.out.println(json);
 //        System.out.println("");
 //        json = ntopng_flow_active("0", "", "", "", "", "", "", "", "", "");
 //        System.out.println(json);json
