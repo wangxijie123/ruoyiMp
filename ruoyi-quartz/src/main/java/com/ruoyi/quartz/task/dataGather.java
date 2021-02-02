@@ -36,6 +36,9 @@ public class dataGather {
     @Resource
     private IHostInfoService hostInfoService;
 
+    @Resource
+    private IFlowService flowService;
+
     @Scheduled(cron = "*/15 * * * * ?")
     public void run(){
         interfaceHostsService.insert();
@@ -43,6 +46,11 @@ public class dataGather {
 //        interfaceL7StatsService.insert();
         insertOther();
         insertAlert();
+    }
+
+    @Scheduled(cron = "0 */1 * * * ?")
+    public void gatherFlow(){
+        flowService.insertTest();
     }
 
     private void insertOther(){

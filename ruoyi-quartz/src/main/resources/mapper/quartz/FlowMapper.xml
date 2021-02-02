@@ -4,63 +4,57 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.quartz.mapper.FlowMapper">
 
-    <resultMap type="com.ruoyi.common.core.domain.Flow" id="FlowsResult">
-        <result property="hashId" column="hash_id"/>
-        <result property="columnNdpi" column="column_ndpi"/>
-        <result property="columnDuration" column="column_duration"/>
-        <result property="columnInfo" column="column_info"/>
-        <result property="columnKey" column="column_key"/>
-        <result property="columnClient" column="column_client"/>
-        <result property="columnProtoL4" column="column_proto_l4"/>
-        <result property="keyAndHash" column="key_and_hash"/>
-        <result property="columnBreakdown" column="column_breakdown"/>
-        <result property="columnServer" column="column_server"/>
-        <result property="keyKey" column="key_key"/>
+    <resultMap type="com.ruoyi.common.core.domain.Flow" id="FlowResult">
+        <result property="hashId"    column="hash_id"    />
+        <result property="columnNdpi"    column="column_ndpi"    />
+        <result property="columnDuration"    column="column_duration"    />
+        <result property="columnInfo"    column="column_info"    />
+        <result property="columnKey"    column="column_key"    />
+        <result property="columnClient"    column="column_client"    />
+        <result property="columnProtoL4"    column="column_proto_l4"    />
+        <result property="keyAndHash"    column="key_and_hash"    />
+        <result property="columnBreakdown"    column="column_breakdown"    />
+        <result property="columnServer"    column="column_server"    />
+        <result property="key"    column="key_key"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="columnBytes"    column="column_bytes"    />
+        <result property="columnThpt"    column="column_thpt"    />
     </resultMap>
 
-    <sql id="selectFlowsVo">
-        select hash_id,
-               column_ndpi,
-               column_duration,
-               column_info,
-               column_key,
-               column_client,
-               column_proto_l4,
-               key_and_hash,
-               column_breakdown,
-               column_server,
-               key_key
-        from flow
+    <sql id="selectFlowVo">
+        select hash_id, column_ndpi, column_duration, column_info, column_key, column_client, column_proto_l4, key_and_hash, column_breakdown, column_server, key_key, update_time, column_bytes, column_thpt from flow
     </sql>
 
-    <select id="selectFlowsList" parameterType="com.ruoyi.common.core.domain.Flow" resultMap="FlowsResult">
-        <include refid="selectFlowsVo"/>
+    <select id="selectFlowList" parameterType="com.ruoyi.common.core.domain.Flow" resultMap="FlowResult">
+        <include refid="selectFlowVo"/>
         <where>
-            <if test="columnNdpi != null  and columnNdpi != ''">and column_ndpi = #{columnNdpi}</if>
-            <if test="columnDuration != null  and columnDuration != ''">and column_duration = #{columnDuration}</if>
-            <if test="columnInfo != null  and columnInfo != ''">and column_info = #{columnInfo}</if>
-            <if test="columnKey != null  and columnKey != ''">and column_key = #{columnKey}</if>
-            <if test="columnClient != null  and columnClient != ''">and column_client = #{columnClient}</if>
-            <if test="columnProtoL4 != null  and columnProtoL4 != ''">and column_proto_l4 = #{columnProtoL4}</if>
-            <if test="keyAndHash != null  and keyAndHash != ''">and key_and_hash = #{keyAndHash}</if>
-            <if test="columnBreakdown != null  and columnBreakdown != ''">and column_breakdown = #{columnBreakdown}</if>
-            <if test="columnServer != null  and columnServer != ''">and column_server = #{columnServer}</if>
-            <if test="key != null  and key != ''">and key_key = #{key}</if>
+            <if test="columnNdpi != null  and columnNdpi != ''"> and column_ndpi = #{columnNdpi}</if>
+            <if test="columnDuration != null  and columnDuration != ''"> and column_duration = #{columnDuration}</if>
+            <if test="columnInfo != null  and columnInfo != ''"> and column_info = #{columnInfo}</if>
+            <if test="columnKey != null  and columnKey != ''"> and column_key = #{columnKey}</if>
+            <if test="columnClient != null  and columnClient != ''"> and column_client = #{columnClient}</if>
+            <if test="columnProtoL4 != null  and columnProtoL4 != ''"> and column_proto_l4 = #{columnProtoL4}</if>
+            <if test="keyAndHash != null  and keyAndHash != ''"> and key_and_hash = #{keyAndHash}</if>
+            <if test="columnBreakdown != null  and columnBreakdown != ''"> and column_breakdown = #{columnBreakdown}</if>
+            <if test="columnServer != null  and columnServer != ''"> and column_server = #{columnServer}</if>
+            <if test="keyKey != null  and keyKey != ''"> and key_key = #{keyKey}</if>
+            <if test="columnBytes != null "> and column_bytes = #{columnBytes}</if>
+            <if test="columnThpt != null "> and column_thpt = #{columnThpt}</if>
         </where>
     </select>
 
-    <select id="selectFlowsById" parameterType="Long" resultMap="FlowsResult">
-        <include refid="selectFlowsVo"/>
+    <select id="selectFlowById" parameterType="Long" resultMap="FlowResult">
+        <include refid="selectFlowVo"/>
         where hash_id = #{hashId}
     </select>
-    <select id="select" resultMap="FlowsResult">
+    <select id="select" resultMap="FlowResult">
         SELECT *
         FROM `flow`
         WHERE update_time = (SELECT max(update_time)
                              FROM flow)
     </select>
 
-    <insert id="insertFlows" parameterType="com.ruoyi.common.core.domain.Flow">
+    <insert id="insertFlow" parameterType="Flow">
         insert into flow
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="hashId != null">hash_id,</if>
@@ -73,7 +67,10 @@
             <if test="keyAndHash != null">key_and_hash,</if>
             <if test="columnBreakdown != null">column_breakdown,</if>
             <if test="columnServer != null">column_server,</if>
-            <if test="key != null">key_key,</if>
+            <if test="keyKey != null">key_key,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="columnBytes != null">column_bytes,</if>
+            <if test="columnThpt != null">column_thpt,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="hashId != null">#{hashId},</if>
@@ -86,28 +83,31 @@
             <if test="keyAndHash != null">#{keyAndHash},</if>
             <if test="columnBreakdown != null">#{columnBreakdown},</if>
             <if test="columnServer != null">#{columnServer},</if>
-            <if test="key != null">#{key},</if>
+            <if test="keyKey != null">#{keyKey},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="columnBytes != null">#{columnBytes},</if>
+            <if test="columnThpt != null">#{columnThpt},</if>
         </trim>
     </insert>
     <insert id="batchInsert">
         insert into flow (hash_id, column_ndpi, column_duration, column_info, column_key, column_client,
-        column_proto_l4, key_and_hash, column_breakdown, column_server, key_key,update_time)
+        column_proto_l4, key_and_hash, column_breakdown, column_server, key_key,update_time,column_bytes,column_thpt)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.hashId}, #{item.columnNdpi}, #{item.columnDuration}, #{item.columnInfo}, #{item.columnKey},
             #{item.columnClient},
             #{item.columnProtoL4}, #{item.keyAndHash}, #{item.columnBreakdown}, #{item.columnServer},
-            #{item.keyKey},now())
+            #{item.key},now(),#{item.columnBytes},#{item.columnThpt})
         </foreach>
         on DUPLICATE key UPDATE column_ndpi = VALUES(column_ndpi), column_duration = VALUES(column_duration),
         column_info = VALUES(column_info), column_key = VALUES(column_key),
         column_client = VALUES(column_client),column_proto_l4 = VALUES(column_proto_l4), key_and_hash =
         VALUES(key_and_hash),
         column_breakdown = VALUES(column_breakdown), column_server = VALUES(column_server), key_key =
-        VALUES(key_key),update_time = VALUES(update_time)
+        VALUES(key_key),update_time = VALUES(update_time),column_bytes = VALUES(column_bytes), column_thpt = VALUES(column_thpt)
     </insert>
 
-    <update id="updateFlows" parameterType="com.ruoyi.common.core.domain.Flow">
+    <update id="updateFlow" parameterType="com.ruoyi.common.core.domain.Flow">
         update flow
         <trim prefix="SET" suffixOverrides=",">
             <if test="columnNdpi != null">column_ndpi = #{columnNdpi},</if>
@@ -124,7 +124,7 @@
         where hash_id = #{hashId}
     </update>
 
-    <delete id="deleteFlowsById" parameterType="Long">
+    <delete id="deleteFlowById" parameterType="Long">
         delete
         from flow
         where hash_id = #{hashId}

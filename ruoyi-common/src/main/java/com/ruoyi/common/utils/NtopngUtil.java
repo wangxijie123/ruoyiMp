@@ -603,7 +603,6 @@ ifid	query	Interface identifier	integer
     public static void main(String[] args) {
         JSONObject json = null;
         String cookie = "tzoffset=28800; _gaDiagram=GA1.1.1648044454.1608621682; session=9c1994a1cb89df61fe5acff47d8df853";
-        int j = 0;
         for(int i=1; i<= 10; i++){
             String url = StringUtils.format("http://112.13.167.87:9002/lua/get_hosts_data.lua?currentPage={}&perPage=10&sortColumn=column_num_flows&sortOrder=desc", i);
             url = StringUtils.format("http://112.13.167.87:9002/lua/get_flows_data.lua?currentPage={}&perPage=10&sortColumn=column_client&sortOrder=asc", i);
@@ -617,7 +616,6 @@ ifid	query	Interface identifier	integer
                 JSONArray data = json.getJSONArray("data");
                 if(data.size() == 0) break;
                 for(int r=0; r<data.size(); r++){
-                    j ++;
                     JSONObject item = data.getJSONObject(r);
                     System.out.println(item.getString("column_key"));
                     for (Map.Entry<String, Object> entry: item.entrySet()) {
@@ -636,7 +634,6 @@ ifid	query	Interface identifier	integer
             }
 //            System.out.println(json);
             System.out.println("-------");
-            System.out.println(j);
         }
 //        System.out.println("ntopng_interface_hosts");
 //        json = ntopng_interface_hosts("0", "", "", "","", "", "");

@@ -47,13 +47,18 @@ public class FlowServiceImpl implements IFlowService {
                 for (int r = 0; r < data.size(); r++) {
                     map.clear();
                     JSONObject item = data.getJSONObject(r);
-                    System.out.println(item.getString("column_key"));
                     for (Map.Entry<String, Object> entry : item.entrySet()) {
                         Object o = entry.getValue();
+                        String key = entry.getKey();
                         if (o instanceof String) {
                             String v = (String) entry.getValue();
-                            System.out.println("key:" + entry.getKey() + "，value:" + NtopngUtil.getHtmlText(v));
-                            map.put(entry.getKey(), NtopngUtil.getHtmlText(v));
+                            if (key.equals("column_breakdown")){
+                                map.put(key, v);
+                            }else {
+                                map.put(key, NtopngUtil.getHtmlText(v));
+                            }
+                        }else if (o instanceof Number){
+                            map.put(key, o);
                         }
                     }
                     if (map.size() > 0) {

@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
+import java.util.Date;
+
 /**
  * 【请填写功能名称】对象 flows
  * 
@@ -13,7 +15,6 @@ import com.ruoyi.common.core.domain.BaseEntity;
  */
 public class Flow
 {
-    private static final long serialVersionUID = 1L;
 
     /** $column.columnComment */
     private Long hashId;
@@ -56,9 +57,51 @@ public class Flow
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String keyKey;
+    private String key;
 
-    public void setHashId(Long hashId) 
+    private Date updateTime;
+
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private Long columnBytes;
+
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private Long columnThpt;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getColumnBytes() {
+        return columnBytes;
+    }
+
+    public void setColumnBytes(Long columnBytes) {
+        this.columnBytes = columnBytes;
+    }
+
+    public Long getColumnThpt() {
+        return columnThpt;
+    }
+
+    public void setColumnThpt(Long columnThpt) {
+        this.columnThpt = columnThpt;
+    }
+
+    public void setHashId(Long hashId)
     {
         this.hashId = hashId;
     }
@@ -148,30 +191,24 @@ public class Flow
     {
         return columnServer;
     }
-    public void setKey(String key) 
-    {
-        this.keyKey = key;
-    }
-
-    public String getKey() 
-    {
-        return keyKey;
-    }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("hashId", getHashId())
-            .append("columnNdpi", getColumnNdpi())
-            .append("columnDuration", getColumnDuration())
-            .append("columnInfo", getColumnInfo())
-            .append("columnKey", getColumnKey())
-            .append("columnClient", getColumnClient())
-            .append("columnProtoL4", getColumnProtoL4())
-            .append("keyAndHash", getKeyAndHash())
-            .append("columnBreakdown", getColumnBreakdown())
-            .append("columnServer", getColumnServer())
-            .append("key", getKey())
-            .toString();
+        return "Flow{" +
+                "hashId=" + hashId +
+                ", columnNdpi='" + columnNdpi + '\'' +
+                ", columnDuration='" + columnDuration + '\'' +
+                ", columnInfo='" + columnInfo + '\'' +
+                ", columnKey='" + columnKey + '\'' +
+                ", columnClient='" + columnClient + '\'' +
+                ", columnProtoL4='" + columnProtoL4 + '\'' +
+                ", keyAndHash='" + keyAndHash + '\'' +
+                ", columnBreakdown='" + columnBreakdown + '\'' +
+                ", columnServer='" + columnServer + '\'' +
+                ", key='" + key + '\'' +
+                ", updateTime=" + updateTime +
+                ", columnBytes=" + columnBytes +
+                ", columnThpt=" + columnThpt +
+                '}';
     }
 }

@@ -19,7 +19,7 @@ public interface FlowMapper
      * @param hashId 【请填写功能名称】ID
      * @return 【请填写功能名称】
      */
-    public Flow selectFlowsById(Long hashId);
+    public Flow selectFlowById(Long hashId);
 
     /**
      * 查询【请填写功能名称】列表
@@ -27,7 +27,7 @@ public interface FlowMapper
      * @param flow 【请填写功能名称】
      * @return 【请填写功能名称】集合
      */
-    public List<Flow> selectFlowsList(Flow flow);
+    public List<Flow> selectFlowList(Flow flow);
 
     /**
      * 新增【请填写功能名称】
@@ -35,7 +35,7 @@ public interface FlowMapper
      * @param flow 【请填写功能名称】
      * @return 结果
      */
-    public int insertFlows(Flow flow);
+    public int insertFlow(Flow flow);
 
     /**
      * 修改【请填写功能名称】
@@ -43,7 +43,7 @@ public interface FlowMapper
      * @param flow 【请填写功能名称】
      * @return 结果
      */
-    public int updateFlows(Flow flow);
+    public int updateFlow(Flow flow);
 
     /**
      * 删除【请填写功能名称】
@@ -51,7 +51,7 @@ public interface FlowMapper
      * @param hashId 【请填写功能名称】ID
      * @return 结果
      */
-    public int deleteFlowsById(Long hashId);
+    public int deleteFlowById(Long hashId);
 
     /**
      * 批量删除【请填写功能名称】
