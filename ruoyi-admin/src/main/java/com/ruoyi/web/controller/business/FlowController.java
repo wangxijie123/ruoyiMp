@@ -31,6 +31,7 @@ public class FlowController extends BaseController
 
     @GetMapping("/list")
     public TableDataInfo getList(){
+        startPage();
         return getDataTable(service.select());
     }
 }

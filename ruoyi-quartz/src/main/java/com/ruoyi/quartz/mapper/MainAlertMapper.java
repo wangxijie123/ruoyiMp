@@ -65,4 +65,7 @@ public interface MainAlertMapper
     void batchInsert(@Param("list") List<Map<String , Object>> list);
 
     Long getMaxTime();
+
+    List<MainAlert> listAll();
+
 }

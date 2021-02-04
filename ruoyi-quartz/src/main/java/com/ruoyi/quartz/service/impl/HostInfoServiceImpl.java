@@ -36,7 +36,7 @@ public class HostInfoServiceImpl implements IHostInfoService {
         if (null == jsonObject) {
             return;
         }
-        insert(jsonObject,"10.76.135.45");
+        insert(jsonObject, "10.76.135.45");
     }
 
     @Override
@@ -46,27 +46,30 @@ public class HostInfoServiceImpl implements IHostInfoService {
 
     @Override
     public void insert(JSONObject jsonObject, String ip) {
-        Long time = DateUtils.getLongTime();
-        JSONObject json = jsonObject.getJSONObject("rsp");
-        JSONObject sent = json.getJSONObject("tcpPacketStats.sent");
-        JSONObject rcvd = json.getJSONObject("tcpPacketStats.rcvd");
-        HostInfo interfaceData = new HostInfo(time,
-                json.getString("mac"), 0L, json.getString("ip"), json.getLong("(local_network_name)"),
-                json.getString("name"), json.getLong("tcp.bytes.sent.anomaly_index"), json.getLong("active_alerted_flows"),
-                json.getLong("seen.first"), json.getLong("seen.last"), json.getLong("packets.sent"),
-                json.getLong("bytes.sent"), json.getLong("packets.rcvd"), json.getLong("bytes.rcvd"),
-                json.getLong("active_flows.as_client"), json.getLong("total_flows.as_client"),
-                json.getLong("alerted_flows.as_client"), json.getLong("unreachable_flows.as_client"),
-                json.getLong("active_flows.as_server"), json.getLong("total_flows.as_server"),
-                json.getLong("alerted_flows.as_server"), json.getLong("unreachable_flows.as_server"),
-                json.getLong("contacts.as_client"), json.getLong("contacts.as_server"),
-                sent.getLong("out_of_order"),
-                sent.getLong("lost"),
-                sent.getLong("retransmissions"), sent.getLong("keep_alive"),
-                rcvd.getLong("out_of_order"),
-                rcvd.getLong("lost"),
-                rcvd.getLong("retransmissions"), rcvd.getLong("keep_alive")
-        );
-        mapper.insertHostInfo(interfaceData);
+        if (jsonObject != null && jsonObject.getInteger("rc") == 0) {
+            Long time = DateUtils.getLongTime();
+            JSONObject json = jsonObject.getJSONObject("rsp");
+            JSONObject sent = json.getJSONObject("tcpPacketStats.sent");
+            JSONObject rcvd = json.getJSONObject("tcpPacketStats.rcvd");
+            HostInfo interfaceData = new HostInfo(time,
+                    json.getString("mac"), 0L, json.getString("ip"), json.getLong("(local_network_name)"),
+                    json.getString("name"), json.getLong("tcp.bytes.sent.anomaly_index"), json.getLong("active_alerted_flows"),
+                    json.getLong("seen.first"), json.getLong("seen.last"), json.getLong("packets.sent"),
+                    json.getLong("bytes.sent"), json.getLong("packets.rcvd"), json.getLong("bytes.rcvd"),
+                    json.getLong("active_flows.as_client"), json.getLong("total_flows.as_client"),
+                    json.getLong("alerted_flows.as_client"), json.getLong("unreachable_flows.as_client"),
+                    json.getLong("active_flows.as_server"), json.getLong("total_flows.as_server"),
+                    json.getLong("alerted_flows.as_server"), json.getLong("unreachable_flows.as_server"),
+                    json.getLong("contacts.as_client"), json.getLong("contacts.as_server"),
+                    sent.getLong("out_of_order"),
+                    sent.getLong("lost"),
+                    sent.getLong("retransmissions"), sent.getLong("keep_alive"),
+                    rcvd.getLong("out_of_order"),
+                    rcvd.getLong("lost"),
+                    rcvd.getLong("retransmissions"), rcvd.getLong("keep_alive")
+            );
+            mapper.insertHostInfo(interfaceData);
+        }
     }
+
 }

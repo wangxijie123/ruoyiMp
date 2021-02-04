@@ -50,6 +50,10 @@
     <select id="getMaxTime" resultType="java.lang.Long">
         SELECT date FROM main_alert ORDER BY id desc LIMIT 1
     </select>
+    <select id="listAll" resultMap="AlertResult">
+        select *
+        from main_alert order by date desc
+    </select>
 
     <insert id="insertAlert" parameterType="com.ruoyi.common.core.domain.MainAlert" keyProperty="id"
             useGeneratedKeys="true">

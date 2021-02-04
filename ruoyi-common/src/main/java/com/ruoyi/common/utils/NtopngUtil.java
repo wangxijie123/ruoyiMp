@@ -51,11 +51,11 @@ public class NtopngUtil {
     //get alert type constants
     private final static String url_alert_type_consts = "/lua/rest/v1/get/alert/type/consts.lua";
     //get alert sererity constants
-    private final static String url_alert_serverity_consts="/lua/rest/v1/get/alert/severity/consts.lua";
+    private final static String url_alert_serverity_consts = "/lua/rest/v1/get/alert/severity/consts.lua";
     //get counters per type
-    private final static String url_alert_per_type="/lua/rest/v1/get/alert/type/counters.lua";
+    private final static String url_alert_per_type = "/lua/rest/v1/get/alert/type/counters.lua";
     //get counters per serverity
-    private final static String url_alert_serverity_counters="/lua/rest/v1/get/alert/severity/counters.lua";
+    private final static String url_alert_serverity_counters = "/lua/rest/v1/get/alert/severity/counters.lua";
     //flows
     //Get active flows
     /*
@@ -82,13 +82,13 @@ ifid	query	Interface identifier	integer
     private final static String url_flow_l4_counters = "/lua/rest/v1/get/flow/l4/counters.lua";
     //Get flow counters for L7 protocols
     /*ifid	query	Interface identifier	integer
-    * */
+     * */
     private final static String url_flow_l7_counters = "/lua/rest/v1/get/flow/l7/counters.lua";
 
     //GET /lua/pro/rest/v1/get/db/topk_flows.lua
     /**
      * Get Top-K flows data. Columns include (but are not limited to) IP_PROTOCOL_VERSION, FLOW_TIME, FIRST_SEEN, LAST_SEEN, VLAN_ID, PACKETS, TOTAL_BYTES, SRC2DST_BYTES, DST2SRC_BYTES, IPV4_SRC_ADDR, IPV4_DST_ADDR, IPV6_SRC_ADDR, IPV6_DST_ADDR, PROTOCOL, L7_PROTO
-     *
+     * <p>
      * Name	Position	Description	Type
      * ifid	query	Interface identifier	integer
      * begin_time_clause	query	Start time (epoch)	integer
@@ -99,7 +99,6 @@ ifid	query	Interface identifier	integer
      * topk_clause	query	Top-K clause (default: SUM)	string
      * approx_search	query	Approximate search (default: true)	string
      * maxhits_clause	query	Max hits (default: 10)
-     *
      */
     private final static String url_flow_db_topk_flows = "/lua/pro/rest/v1/get/db/topk_flows.lua";
     //Live PCAP traffic extraction
@@ -143,12 +142,11 @@ ifid	query	Interface identifier	integer
     private final static String url_pro_db_flows = "/lua/pro/rest/v1/get/db/topk_flows.lua";
 
     /**
-     *
      * @param url
      * @return
      */
-    public static JSONObject ntopng_getData(String url){
-        if(StringUtils.isEmpty(auth)){
+    public static JSONObject ntopng_getData(String url) {
+        if (StringUtils.isEmpty(auth)) {
             auth = user + ":" + pass;
             byte[] binaryData = new byte[0];
             try {
@@ -174,71 +172,76 @@ ifid	query	Interface identifier	integer
     /**
      * 拼接字符串
      * 如果value不为空，则拼接成 param=value的格式
+     *
      * @param url
      * @param param
      * @param value
      * @return
      */
-    public static String joinUrl(String url, String param, String value){
-        if(StringUtils.isNotEmpty(value)){
+    public static String joinUrl(String url, String param, String value) {
+        if (StringUtils.isNotEmpty(value)) {
             url = StringUtils.format("{}&{}={}", url, param, value);
         }
         return url;
     }
+
     /**
      * get interface data
      *
      * @param ifid interface identifier
      * @return
      */
-    public static JSONObject ntopng_interface_data(String ifid){
+    public static JSONObject ntopng_interface_data(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_interface_data, ifid);
         return ntopng_getData(url);
     }
 
     /**
      * get interface IP addresses
+     *
      * @param ifid
      * @return
      */
-    public static JSONObject ntopng_interface_address(String ifid){
+    public static JSONObject ntopng_interface_address(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_interface_address, ifid);
         return ntopng_getData(url);
     }
 
     /**
-     *
      * @param ifid
      * @param ndpistats_mode
      * @return
      */
-    public static JSONObject ntopng_interface_stats_l7(String ifid, String ndpistats_mode){
+    public static JSONObject ntopng_interface_stats_l7(String ifid, String ndpistats_mode) {
         String url = StringUtils.format("{}{}?ifid={}&ndpistats_mode={}", host, url_interface_stat_l7, ifid, ndpistats_mode);
         return ntopng_getData(url);
     }
 
     /**
      * get IP DSCP statistics for an interface
+     *
      * @param ifid
      * @return
      */
-    public static JSONObject ntopng_stats_dscp(String ifid){
+    public static JSONObject ntopng_stats_dscp(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_interface_stat_dscp, ifid);
         return ntopng_getData(url);
     }
 
     /**
      * get ntopng actively monitored interfaces names and ids
+     *
      * @return
      */
-    public static JSONObject ntopng_interface_interfaces(){
+    public static JSONObject ntopng_interface_interfaces() {
         String url = StringUtils.format("{}{}", host, url_interface_interfaces);
         return ntopng_getData(url);
     }
 
     /**
      * get active hosts
-     * @param ifid  interface identifier
+     *
+     * @param ifid        interface identifier
      * @param currentPage page(optional)
      * @param prePage     items pre page(optional)
      * @param sortColumn  column for sorting(e.g. ip, name, since, last, alerts, country, vlan, num_flows, traffic, thpt)(optional)
@@ -248,7 +251,7 @@ ifid	query	Interface identifier	integer
      * @return
      */
     public static JSONObject ntopng_interface_hosts(String ifid, String currentPage, String prePage, String sortColumn,
-                                           String sortOrder, String all, String mode){
+                                                    String sortOrder, String all, String mode) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_host_hosts, ifid);
         url = joinUrl(url, "currentPage", currentPage);
         url = joinUrl(url, "prePage", prePage);
@@ -263,48 +266,50 @@ ifid	query	Interface identifier	integer
 
     /**
      * get host interfaces
-     * @param hostip   Host address
+     *
+     * @param hostip Host address
      * @return
      */
-    public static JSONObject ntopng_host_interfaces(String hostip){
+    public static JSONObject ntopng_host_interfaces(String hostip) {
         String url = StringUtils.format("{}{}?host={}", host, url_host_interfaces, hostip);
         return ntopng_getData(url);
     }
 
     /**
      * 获取指定主机的数据，对应页面：
-     *    http://112.13.167.87:9002/lua/host_details.lua?host=10.76.135.45
+     * http://112.13.167.87:9002/lua/host_details.lua?host=10.76.135.45
+     *
      * @param ifid
-     * @param hostip  Host address
+     * @param hostip Host address
      * @return
      */
-    public static JSONObject ntopng_host_data(String ifid, String hostip){
+    public static JSONObject ntopng_host_data(String ifid, String hostip) {
         String url = StringUtils.format("{}{}?ifid={}&host={}", host, url_host_data, ifid, hostip);
         return ntopng_getData(url);
     }
 
     /**
-     *
      * @param ifid        interface identifier
      * @param hostip      host address
      * @param field_alias field alias
      * @return
      */
-    public static JSONObject ntopng_host_custom_data(String ifid, String hostip, String field_alias){
+    public static JSONObject ntopng_host_custom_data(String ifid, String hostip, String field_alias) {
         String url = StringUtils.format("{}{}?ifid={}&host={}&field_alias={}", host, url_host_custom_data, ifid, hostip, field_alias);
         return ntopng_getData(url);
     }
 
     /**
      * get L7 statistics for a host
-     * @param ifid           interface identifier
-     * @param hostip         Host address
-     * @param vlan           VLAN ID(optional)
-     * @param breed          show breed(optional)
-     * @param ndpi_category  Show nDPI category(optional)
+     *
+     * @param ifid          interface identifier
+     * @param hostip        Host address
+     * @param vlan          VLAN ID(optional)
+     * @param breed         show breed(optional)
+     * @param ndpi_category Show nDPI category(optional)
      * @return
      */
-    public static JSONObject ntopng_host_static_l7(String ifid, String hostip, String vlan, String breed, String ndpi_category){
+    public static JSONObject ntopng_host_static_l7(String ifid, String hostip, String vlan, String breed, String ndpi_category) {
         String url = StringUtils.format("{}{}?ifid={}&host={}", host, url_host_stats_l7, ifid, hostip);
         url = joinUrl(url, "vlan", vlan);
         url = joinUrl(url, "breed", breed);
@@ -314,14 +319,13 @@ ifid	query	Interface identifier	integer
     }
 
     /**
-     *
      * @param ifid
      * @param hostip
      * @param vlan
-     * @param direction  Select direction: 'sent" or "recvd'(default)
+     * @param direction Select direction: 'sent" or "recvd'(default)
      * @return
      */
-    public static JSONObject ntopng_host_static_dscp(String ifid, String hostip, String vlan, String direction){
+    public static JSONObject ntopng_host_static_dscp(String ifid, String hostip, String vlan, String direction) {
         String url = StringUtils.format("{}{}?ifid={}&host={}", host, url_host_stats_dscp, ifid, hostip);
         url = joinUrl(url, "vlan", vlan);
         url = joinUrl(url, "direction", direction);
@@ -331,15 +335,16 @@ ifid	query	Interface identifier	integer
 
     /**
      * get alerts data
-     * @param ifid             interface identifier
-     * @param status           status filter(historical, historical-flows, engaged)
-     * @param epoch_begin      Start time (epoch) (optional)
-     * @param epoch_end        End time (epoch) (optional)
-     * @param alert_type       Alert Type (optional)
-     * @param alert_serverity  Alert Severity (optional)
+     *
+     * @param ifid            interface identifier
+     * @param status          status filter(historical, historical-flows, engaged)
+     * @param epoch_begin     Start time (epoch) (optional)
+     * @param epoch_end       End time (epoch) (optional)
+     * @param alert_type      Alert Type (optional)
+     * @param alert_serverity Alert Severity (optional)
      * @return
      */
-    public static JSONObject ntopng_alert_data(String ifid, String status, String epoch_begin, String epoch_end, String alert_type, String alert_serverity){
+    public static JSONObject ntopng_alert_data(String ifid, String status, String epoch_begin, String epoch_end, String alert_type, String alert_serverity) {
         String url = StringUtils.format("{}{}?ifid={}&status={}", host, url_alert_data, ifid, status);
 
         url = joinUrl(url, "epoch_begin", epoch_begin);
@@ -353,20 +358,21 @@ ifid	query	Interface identifier	integer
 
     /**
      * Get active flows
-     * @param ifid           query	Interface identifier	integer
-     * @param currentPage    Pagination: page (optional)	integer
-     * @param perPage        Pagination: items per page (optional)	integer
-     * @param sortColumn     Pagination: column for sorting (e.g. ‘score’) (optional)	string
-     * @param sortOrder      Pagination: sorting order: ‘asc’ or ‘desc’ (optional)	string
-     * @param vhost           Host address filter (optional)	string
-     * @param vlan           VLAN ID filter (optional)	integer
-     * @param l4proto        L4 protocol filter (optional)	string
-     * @param application    Application protocol filter (optional)	string
-     * @param verbose        Add more details including TCP stats (optional)	boolean
+     *
+     * @param ifid        query	Interface identifier	integer
+     * @param currentPage Pagination: page (optional)	integer
+     * @param perPage     Pagination: items per page (optional)	integer
+     * @param sortColumn  Pagination: column for sorting (e.g. ‘score’) (optional)	string
+     * @param sortOrder   Pagination: sorting order: ‘asc’ or ‘desc’ (optional)	string
+     * @param vhost       Host address filter (optional)	string
+     * @param vlan        VLAN ID filter (optional)	integer
+     * @param l4proto     L4 protocol filter (optional)	string
+     * @param application Application protocol filter (optional)	string
+     * @param verbose     Add more details including TCP stats (optional)	boolean
      * @return
      */
     public static JSONObject ntopng_flow_active(String ifid, String currentPage, String perPage, String sortColumn, String sortOrder,
-                                                String vhost, String vlan, String l4proto, String application, String verbose){
+                                                String vhost, String vlan, String l4proto, String application, String verbose) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_flow_active, ifid);
         url = joinUrl(url, "currentPage", currentPage);
         url = joinUrl(url, "perPage", perPage);
@@ -382,10 +388,11 @@ ifid	query	Interface identifier	integer
 
     /**
      * Get flow counters for L4 protocols
-     * @param ifid    ifid	query	Interface identifier	integer
+     *
+     * @param ifid ifid	query	Interface identifier	integer
      * @return
      */
-    public static JSONObject ntopng_flow_l4_counters(String ifid){
+    public static JSONObject ntopng_flow_l4_counters(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_flow_l4_counters, ifid);
 
         return ntopng_getData(url);
@@ -393,10 +400,11 @@ ifid	query	Interface identifier	integer
 
     /**
      * Get flow counters for L7 protocols
+     *
      * @param ifid
      * @return
      */
-    public static JSONObject ntopng_flow_l7_counters(String ifid){
+    public static JSONObject ntopng_flow_l7_counters(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_flow_l7_counters, ifid);
 
         return ntopng_getData(url);
@@ -405,22 +413,23 @@ ifid	query	Interface identifier	integer
     /**
      * Get Top-K flows data.
      * Columns include (but are not limited to) IP_PROTOCOL_VERSION, FLOW_TIME, FIRST_SEEN, LAST_SEEN, VLAN_ID, PACKETS,
-     *                                          TOTAL_BYTES, SRC2DST_BYTES, DST2SRC_BYTES, IPV4_SRC_ADDR, IPV4_DST_ADDR,
-     *                                          IPV6_SRC_ADDR, IPV6_DST_ADDR, PROTOCOL, L7_PROTO
-     * @param ifid                   Interface identifier	integer
-     * @param begin_time_clause      Start time (epoch)	integer
-     * @param end_time_clause        End time (epoch)	integer
-     * @param select_keys_clause     Select comma-separated keys list (default: IPV4_SRC_ADDR,IPV4_DST_ADDR,L7_PROTO)	string
-     * @param select_values_clause   Select value (default: BYTES)	string
-     * @param where_clause           Where clause (default: none)	string
-     * @param topk_clause            Top-K clause (default: SUM)	string
-     * @param approx_search          Approximate search (default: true)	string
-     * @param maxhits_clause         Max hits (default: 10)
+     * TOTAL_BYTES, SRC2DST_BYTES, DST2SRC_BYTES, IPV4_SRC_ADDR, IPV4_DST_ADDR,
+     * IPV6_SRC_ADDR, IPV6_DST_ADDR, PROTOCOL, L7_PROTO
+     *
+     * @param ifid                 Interface identifier	integer
+     * @param begin_time_clause    Start time (epoch)	integer
+     * @param end_time_clause      End time (epoch)	integer
+     * @param select_keys_clause   Select comma-separated keys list (default: IPV4_SRC_ADDR,IPV4_DST_ADDR,L7_PROTO)	string
+     * @param select_values_clause Select value (default: BYTES)	string
+     * @param where_clause         Where clause (default: none)	string
+     * @param topk_clause          Top-K clause (default: SUM)	string
+     * @param approx_search        Approximate search (default: true)	string
+     * @param maxhits_clause       Max hits (default: 10)
      * @return
      */
     public static JSONObject ntopng_flow_db_topk_flows(String ifid, String begin_time_clause, String end_time_clause,
                                                        String select_keys_clause, String select_values_clause,
-                                                       String where_clause, String topk_clause, String approx_search, String maxhits_clause){
+                                                       String where_clause, String topk_clause, String approx_search, String maxhits_clause) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_flow_db_topk_flows, ifid);
         url = joinUrl(url, "begin_time_clause", begin_time_clause);
         url = joinUrl(url, "end_time_clause", end_time_clause);
@@ -435,75 +444,88 @@ ifid	query	Interface identifier	integer
 
     /**
      * Live PCAP traffic extraction
-     * @param ifid         Interface identifier	integer
-     * @param epoch_begin  Start time (epoch)	integer
-     * @param epoch_end    Start time (epoch)	integer
-     * @param bpf_filter   BPF filter	string
+     *
+     * @param ifid        Interface identifier	integer
+     * @param epoch_begin Start time (epoch)	integer
+     * @param epoch_end   Start time (epoch)	integer
+     * @param bpf_filter  BPF filter	string
      * @return
      */
-    public static JSONObject ntopng_flow_pcap_live_extraction(String ifid, String epoch_begin, String epoch_end, String bpf_filter){
+    public static JSONObject ntopng_flow_pcap_live_extraction(String ifid, String epoch_begin, String epoch_end, String bpf_filter) {
         String url = StringUtils.format("{}{}?ifid={}&epoch_begin={}&epoch_end={}&bpf_filter={}", host, url_flow_pcap_live_extraction,
-                ifid, epoch_begin, epoch_end,bpf_filter);
+                ifid, epoch_begin, epoch_end, bpf_filter);
         return ntopng_getData(url);
     }
 
     /**
      * Get L4 protocol constants
+     *
      * @param ifid
      * @return
      */
-    public static JSONObject ntopng_flow_proto_l4(String ifid){
+    public static JSONObject ntopng_flow_proto_l4(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_flow_proto_l4, ifid);
         return ntopng_getData(url);
     }
 
     /**
      * Get L7 application protocol constants
+     *
      * @param ifid
      * @return
      */
-    public static JSONObject ntopng_flow_proto_l7(String ifid){
+    public static JSONObject ntopng_flow_proto_l7(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_flow_proto_l7, ifid);
         return ntopng_getData(url);
     }
+
     /**
-     *Get L7 application category constants
+     * Get L7 application category constants
+     *
      * @param ifid
      * @return
      */
-    public static JSONObject ntopng_flow_category_consts(String ifid){
+    public static JSONObject ntopng_flow_category_consts(String ifid) {
         String url = StringUtils.format("{}{}?ifid={}", host, url_flow_category_consts, ifid);
         return ntopng_getData(url);
     }
+
     /**
-     *Get one or all interface pools
+     * Get one or all interface pools
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_interface_pools(){
+    public static JSONObject ntopng_flow_interface_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_interface_pools);
         return ntopng_getData(url);
     }
+
     /**
-     *Get one or all host pools
+     * Get one or all host pools
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_host_pools(){
+    public static JSONObject ntopng_flow_host_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_host_pools);
         return ntopng_getData(url);
     }
+
     /**
-     *Get one or all local network pools
+     * Get one or all local network pools
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_network_pools(){
+    public static JSONObject ntopng_flow_network_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_network_pools);
         return ntopng_getData(url);
     }
+
     /**
-     *Get all pools of any type
+     * Get all pools of any type
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_pools(){
+    public static JSONObject ntopng_flow_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_pools);
         return ntopng_getData(url);
     }
@@ -515,61 +537,72 @@ ifid	query	Interface identifier	integer
 //        String url = StringUtils.format("{}{}", host, url_flow_active_monitoring_pools);
 //        return ntopng_getData(url);
 //    }
+
     /**
-     *Get one or all flow pools
+     * Get one or all flow pools
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_flow_pools(){
+    public static JSONObject ntopng_flow_flow_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_flow_pools);
         return ntopng_getData(url);
     }
     //
 
     /**
-     *Get one or all MAC pools
+     * Get one or all MAC pools
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_mac_pools(){
+    public static JSONObject ntopng_flow_mac_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_mac_pools);
         return ntopng_getData(url);
     }
+
     /**
-     *Get one or all host pool pools
+     * Get one or all host pool pools
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_host_pool_pools(){
+    public static JSONObject ntopng_flow_host_pool_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_host_pool_pools);
         return ntopng_getData(url);
     }
+
     /**
-     *Get one or all system pools
+     * Get one or all system pools
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_system_pools(){
+    public static JSONObject ntopng_flow_system_pools() {
         String url = StringUtils.format("{}{}", host, url_flow_system_pools);
         return ntopng_getData(url);
     }
+
     /**
-     *Get all host pool members
+     * Get all host pool members
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_host_pool_members(){
+    public static JSONObject ntopng_flow_host_pool_members() {
         String url = StringUtils.format("{}{}", host, url_flow_host_pool_members);
         return ntopng_getData(url);
     }
+
     /**
-     *Get an host pool given a member
+     * Get an host pool given a member
+     *
      * @return
      */
-    public static JSONObject ntopng_flow_pool_by_member(){
+    public static JSONObject ntopng_flow_pool_by_member() {
         String url = StringUtils.format("{}{}", host, url_flow_pool_by_member);
         return ntopng_getData(url);
     }
 
-    public static JSONObject ntopng_web_spider(String url, String cookie){
+    public static JSONObject ntopng_web_spider(String url, String cookie) {
         JSONObject json = null;
         try {
-            Map<String, String> header =new HashMap<>();
+            Map<String, String> header = new HashMap<>();
             header.put("cookie", cookie);
             HttpResult result = HttpUtil.doGet(HttpUtil.getHttpClient(), url, header);
             json = JSONObject.parseObject(result.getData());
@@ -579,16 +612,16 @@ ifid	query	Interface identifier	integer
         return json;
     }
 
-    public static String getHtmlText(String html){
+    public static String getHtmlText(String html) {
 
         StringBuffer stringBuffer = new StringBuffer(html);
         int ps1, ps2;
-        while(true) {
+        while (true) {
             ps1 = stringBuffer.indexOf("<");
             ps2 = stringBuffer.indexOf(">");
-            if(ps1 >=0 && ps2 >=0 && ps2>ps1){
+            if (ps1 >= 0 && ps2 >= 0 && ps2 > ps1) {
                 stringBuffer = stringBuffer.delete(ps1, ps2 + 1);
-            }else{
+            } else {
                 break;
             }
         }
@@ -599,29 +632,28 @@ ifid	query	Interface identifier	integer
         return value;
     }
 
-
-    public static void main(String[] args) {
+    public static void ntopng_flows() {
         JSONObject json = null;
         String cookie = "tzoffset=28800; _gaDiagram=GA1.1.1648044454.1608621682; session=9c1994a1cb89df61fe5acff47d8df853";
-        for(int i=1; i<= 10; i++){
+        for (int i = 1; i <= 10; i++) {
             String url = StringUtils.format("http://112.13.167.87:9002/lua/get_hosts_data.lua?currentPage={}&perPage=10&sortColumn=column_num_flows&sortOrder=desc", i);
             url = StringUtils.format("http://112.13.167.87:9002/lua/get_flows_data.lua?currentPage={}&perPage=10&sortColumn=column_client&sortOrder=asc", i);
 
             System.out.println(url);
             json = ntopng_web_spider(url, cookie);
-            if(json == null) {
+            if (json == null) {
                 break;
-            }else{
+            } else {
                 Map map = new HashMap();
                 JSONArray data = json.getJSONArray("data");
-                if(data.size() == 0) break;
-                for(int r=0; r<data.size(); r++){
+                if (data.size() == 0) break;
+                for (int r = 0; r < data.size(); r++) {
                     JSONObject item = data.getJSONObject(r);
                     System.out.println(item.getString("column_key"));
-                    for (Map.Entry<String, Object> entry: item.entrySet()) {
+                    for (Map.Entry<String, Object> entry : item.entrySet()) {
                         Object o = entry.getValue();
-                        if(o instanceof String) {
-                            String v = (String)entry.getValue();
+                        if (o instanceof String) {
+                            String v = (String) entry.getValue();
                             System.out.println("key:" + entry.getKey() + "，value:" + getHtmlText(v));
 //                            map.put(entry.getKey(),NtopngUtil.getHtmlText(v));
                         }
@@ -635,9 +667,17 @@ ifid	query	Interface identifier	integer
 //            System.out.println(json);
             System.out.println("-------");
         }
-//        System.out.println("ntopng_interface_hosts");
-//        json = ntopng_interface_hosts("0", "", "", "","", "", "");
-//        System.out.println(json);
+        System.out.println("ntopng_interface_hosts");
+        json = ntopng_interface_hosts("0", "", "", "", "", "", "");
+        System.out.println(json);
+    }
+
+    public static void main(String[] args) {
+        JSONObject json = null;
+        System.out.println("ntopng_alert_data");
+        json = ntopng_alert_data("0", "historical", "", "", "", "");
+        System.out.println(json);
+//        ntopng_flows();
 
 
         /*System.out.println("ntopng_interface_data");
@@ -676,9 +716,7 @@ ifid	query	Interface identifier	integer
         System.out.println("ntopng_host_static_dscp");
         json = ntopng_host_static_dscp("0", "10.76.135.45", "0", "sent");
         System.out.println(json);
-        System.out.println("ntopng_alert_data");
-        json = ntopng_alert_data("0", "historical", "", "", "", "");
-        System.out.println(json);
+
 //        System.out.println("");
 //        json = ntopng_flow_active("0", "", "", "", "", "", "", "", "", "");
 //        System.out.println(json);json
@@ -738,4 +776,6 @@ ifid	query	Interface identifier	integer
         //{"rc":-5,"rc_str_hr":"Invalid arguments","rc_str":"INVALID_ARGUMENTS","rsp":[]}
         System.out.println("===end===");*/
     }
+
+
 }

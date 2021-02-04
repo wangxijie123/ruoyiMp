@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.business;
 
 import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.quartz.service.MainIAlertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +26,11 @@ public class MainAlertController extends BaseController
     @GetMapping("/")
     public void insertTest(){
         service.insertTest();
+    }
+
+    @GetMapping("/list")
+    public TableDataInfo getList(){
+        startPage();
+        return getDataTable(service.listAll());
     }
 }

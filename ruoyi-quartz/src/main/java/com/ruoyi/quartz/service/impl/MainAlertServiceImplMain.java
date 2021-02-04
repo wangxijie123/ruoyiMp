@@ -2,6 +2,7 @@ package com.ruoyi.quartz.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.common.core.domain.MainAlert;
 import com.ruoyi.common.utils.NtopngUtil;
 import com.ruoyi.quartz.mapper.MainAlertMapper;
 import com.ruoyi.quartz.service.MainIAlertService;
@@ -44,10 +45,12 @@ public class MainAlertServiceImplMain implements MainIAlertService {
                     continue;
                 }
                 map.clear();
+                String msg = json.getString("msg");
+                msg = NtopngUtil.getHtmlText(msg);
                 map.put("date", date);
                 map.put("severity", json.getString("severity"));
                 map.put("duration", json.getLong("duration"));
-                map.put("msg", json.getString("msg"));
+                map.put("msg", msg);
                 map.put("entityVal", json.getString("entity_val"));
                 map.put("count", json.getLong("count"));
                 map.put("type", json.getString("type"));
@@ -63,5 +66,10 @@ public class MainAlertServiceImplMain implements MainIAlertService {
     @Override
     public Long getMaxTime() {
         return mapper.getMaxTime();
+    }
+
+    @Override
+    public List<MainAlert> listAll() {
+        return mapper.listAll();
     }
 }

@@ -1,6 +1,9 @@
 package com.ruoyi.quartz.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.common.core.domain.MainAlert;
+
+import java.util.List;
 
 /**
  * 【请填写功能名称】Service接口
@@ -16,4 +19,6 @@ public interface MainIAlertService
     void insert(JSONObject json, Long from, Long end);
 
     Long getMaxTime();
+
+    List<MainAlert> listAll();
 }
